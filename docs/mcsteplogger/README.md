@@ -1,5 +1,5 @@
 ---
-sort: 0
+sort: 3
 title: MCStepLogger
 ---
 
@@ -8,6 +8,5 @@ title: MCStepLogger
 A page for the documentation of the MCStepLoger
 
 **..under construction...**
-
 
 {% include list.liquid all=true %}
