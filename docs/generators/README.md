@@ -9,16 +9,7 @@ This section provides a documentation and the usage of primary generators in O2.
 
 There are various [concret implementations](https://github.com/AliceO2Group/AliceO2/tree/dev/Generators/include/Generators) of generators in O2. Among others and often used there is [Pythia8](https://pythia.org). These predefined generators are invoked via
 ```bash
-o2-sim -g <generator-name> [--extKinFile <file-path>]
-```
-
-## Using an external generator
-
-External generators are usually defined in macros that are evaluated at runtime. Please refer to the [custom generators page](generatorscustom.md) for a detailed explanation of their implementation.
-
-Such a custom generator is invoked with
-```bash
-o2-sim -g external --configKeyValues "GeneratorExternal.fileName=<path/to/macro.C>;GeneratorExternal.funcName=<function-signature-to-call(...)>"
+o2-sim -g <generator-name> [<potentialOtherArgs>]
 ```
 
 ## Generator status codes, flagging particles to be tracked/transported

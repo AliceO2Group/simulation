@@ -16,6 +16,4 @@ If you derive from `GeneratorTGenerator` and neither override `Generator::import
 
 ## Tweak existing generators
 
-Of course, one can also derive from the fully-functional generator implementations, for instance from [`GeneratorPythia8](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/include/Generators/GeneratorPythia8.h) as it is done [here](https://github.com/AliceO2Group/O2DPG/blob/master/MC/config/PWGLF/pythia8/generator_pythia8_longlived.C).
-
-...
+Of course, one can also derive from an aleady fully-functional generator implementations, for instance from [`GeneratorPythia8](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/include/Generators/GeneratorPythia8.h) as it is done [here](https://github.com/AliceO2Group/O2DPG/blob/master/MC/config/PWGLF/pythia8/generator_pythia8_longlived.C).
