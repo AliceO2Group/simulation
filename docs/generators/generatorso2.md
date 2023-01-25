@@ -45,10 +45,10 @@ For the generic `boxgen` generator, a user can influence the PDG, eta range etc.
 
 Example : 
 ```
-o2-sim -m PIPE ITS MFT -e TGeant3 -g boxgen -n 10 --configKeyValues 'BoxGun.pdg=13 ; BoxGun.eta[0]=-3.6 ; BoxGun.eta[1]=-2.45; BoxGun.number=100'
+o2-sim -m PIPE ITS MFT -g boxgen -n 10 --configKeyValues 'BoxGun.pdg=13 ; BoxGun.eta[0]=-3.6 ; BoxGun.eta[1]=-2.45; BoxGun.number=100'
 ```
 
-This command line will generate 10 events with 100 forward muons.
+This command line will generate 10 events with 100 forward muons, simulating only the beam pipe, the ITS and the MFT.
 
 ## Generating from file
 
