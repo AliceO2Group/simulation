@@ -1,6 +1,6 @@
 ---
 sort: 2
-title: Generators in O2DPG
+title: Generators implemented in O2DPG
 ---
 
 # Generators implemented in O2DPG

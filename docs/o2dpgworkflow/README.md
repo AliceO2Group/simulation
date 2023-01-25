@@ -11,7 +11,7 @@ There are 2 tuility scripts provided in O2DPG
 
 The first script is used to create a workflow tree describing the necessary steps and dependencies from simulation to final AOD creation while the latter is capable of executing all requested/required steps.
 
-Several examples can be found at https://gitlab.cern.ch/aliperf/alibibenchtasks. **N.B.** These tasks are run nightly on a test machine so these scripts are constantly maintained.
+Several examples can be found at <https://gitlab.cern.ch/aliperf/alibibenchtasks>. **N.B.** These tasks are run nightly on a test machine so these scripts are constantly maintained.
 
 It is best to build and load at least the `O2sim` environment from `alienv`.
 
@@ -68,7 +68,8 @@ Often what you might want to do is running the full chain to obtain final `AO2D.
 
 For the runner, it is not strictly possible to respect `--mem-limit <mem limit [MB]>` and `--cpu-limit <numpber of CPUS>` at all times. Indeed, each task comes with *resource estimates* from which the runner decides whether or not a task can be launched. So it can happen in a few rare cases that the resource limits are exceeded for a short amount of time.
 
-If the runner just stops without any error although your target tasks have not yet been run, that points to the fact that either you restricted the resources too much or that your machine does not have enough resources to offer in the first place. In the former case, try to increase `--mem-limit <mem limit [MB]>` or `--cpu-limit <numpber of CPUS>`. Most of the times when this happens it is the memory that is too small.
+If the runner just stops without any error although your target tasks have not yet been run, that points to the fact that either you restricted the resources too much or that your machine does not have enough resources to offer in the first place.
+In the former case, try to increase `--mem-limit <mem limit [MB]>` or `--cpu-limit <numpber of CPUS>`. Most of the times when this happens it is the memory that is too small.
 
 If your target task is the AOD creation but the final merging of AODs from several time frames fails, most likely you have not loaded the `O2Physics` environment. However, `O2Physics` is implied when loading `O2sim`.
 

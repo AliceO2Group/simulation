@@ -25,7 +25,7 @@ _sass/@primer/css/**/*.md
 action.changelog.md
 
 # MegaLinter
-#megalinter-reports/
+megalinter-reports/
 
 # Mac OS
 .DS_Store
