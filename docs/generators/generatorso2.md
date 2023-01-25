@@ -43,6 +43,12 @@ There are multiple box or gun generators:
 
 For the generic `boxgen` generator, a user can influence the PDG, eta range etc. via `--configKeyValues "BoxGun.<param>=<value>;..."`, see this [header file](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/include/Generators/BoxGunParam.h) for all settings.
 
+Example : 
+```
+o2-sim -m PIPE ITS MFT -e TGeant3 -g boxgen -n 10 --configKeyValues 'BoxGun.pdg=13 ; BoxGun.eta[0]=-3.6 ; BoxGun.eta[1]=-2.45; BoxGun.number=100'
+```
+
+This command line will generate 10 events with 100 forward muons.
 
 ## Generating from file
 
