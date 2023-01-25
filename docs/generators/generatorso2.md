@@ -1,6 +1,6 @@
 ---
 sort: 1
-title: Generators in O2
+title: Generators implemented in O2
 ---
 
 # Generators implemented in O2
@@ -43,8 +43,8 @@ There are multiple box or gun generators:
 
 For the generic `boxgen` generator, a user can influence the PDG, eta range etc. via `--configKeyValues "BoxGun.<param>=<value>;..."`, see this [header file](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/include/Generators/BoxGunParam.h) for all settings.
 
-Example : 
-```
+Example :
+```bash
 o2-sim -m PIPE ITS MFT -g boxgen -n 10 --configKeyValues 'BoxGun.pdg=13 ; BoxGun.eta[0]=-3.6 ; BoxGun.eta[1]=-2.45; BoxGun.number=100'
 ```
 
@@ -64,7 +64,7 @@ o2-sim -g extkinO2 --extKinFile <path/to/o2sim_Kine.root>
 ### hepmc
 
 This reads primaries to be transported from a HepMC file. A command would look like
-```
+```bash
 o2-sim -g hepmc --configKeyValues "HepMC.fileName=<path/to/HepMC/file>"
 ```
 
