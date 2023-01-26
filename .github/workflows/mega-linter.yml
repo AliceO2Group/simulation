@@ -30,10 +30,12 @@ jobs:
           # This may include unrelated files if the PR branch is not up to date with the upstream.
           # ref: ${{ github.event.pull_request.head.sha }}
           # Checkout the merge commit.
-          ref: refs/pull/${{ github.event.number }}/merge
+          #ref: refs/pull/${{ github.event.number }}/merge
           fetch-depth: 0
           # So we can use secrets.ALIBUILD_GITHUB_TOKEN to push later.
-          persist-credentials: false
+          #persist-credentials: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
 
       # MegaLinter
       - name: MegaLinter
