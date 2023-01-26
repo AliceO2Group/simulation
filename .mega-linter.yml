@@ -3,7 +3,6 @@
 # See all available variables at https://oxsecurity.github.io/megalinter/configuration/ and in linters documentation
 
 APPLY_FIXES: all # all, none, or list of linter keys
-DEFAULT_BRANCH: master # Usually master or main
 ENABLE: # If you use ENABLE variable, all other languages/formats/tooling-formats will be disabled by default
   - ACTION
   - BASH
