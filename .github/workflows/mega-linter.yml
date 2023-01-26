@@ -1,0 +1,57 @@
+---
+# MegaLinter GitHub Action configuration file
+# More info at https://oxsecurity.github.io/megalinter
+name: MegaLinter
+
+on:
+  pull_request_target:
+    branches:
+      - main
+
+env:
+  # Apply linter fixes configuration
+  APPLY_FIXES: all
+  PR_NUMBER: ${{ github.event.pull_request.number }}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: MegaLinter
+    runs-on: ubuntu-latest
+    steps:
+      # Git Checkout
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          # Checkout the HEAD of the PR instead of the merge commit.
+          # This may include unrelated files if the PR branch is not up to date with the upstream.
+          # ref: ${{ github.event.pull_request.head.sha }}
+          # Checkout the merge commit.
+          ref: refs/pull/${{ github.event.number }}/merge
+          fetch-depth: 0
+          # So we can use secrets.ALIBUILD_GITHUB_TOKEN to push later.
+          persist-credentials: false
+
+      # MegaLinter
+      - name: MegaLinter
+        id: ml
+        # You can override MegaLinter flavor used to have faster performances
+        # More info at https://oxsecurity.github.io/megalinter/flavors/
+        uses: oxsecurity/megalinter@v6
+        env:
+          # All available variables are described in documentation:
+          # https://oxsecurity.github.io/megalinter/configuration/
+          # Validates all source when push on master, else just the diff with
+          # master. Override with true if you always want to lint all sources.
+          VALIDATE_ALL_CODEBASE: false
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Exit with error if the PR is not clean
+        run: |
+          case "${{ steps.ml.outputs.has_updated_sources }}" in
+            0) echo '::notice::PR is clean' ; exit 0 ;;
+            1) echo '::error::MegaLinter found errors' ; exit 1 ;;
+          esac
