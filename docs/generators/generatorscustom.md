@@ -20,4 +20,6 @@ In addition, only particles with a HepMC status of 1 will be tracked (that was t
 
 ## Tweak existing generators
 
-Of course, one can also derive from an aleady fully-functional genreator implementations, for instance from [`GeneratorPythia8](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/include/Generators/GeneratorPythia8.h) as it is done [here](https://github.com/AliceO2Group/O2DPG/blob/master/MC/config/PWGLF/pythia8/generator_pythia8_longlived.C).
+Of course, one can also derive from an aleady fully-functional genreator implementations, for intance frm [`GeneratorPythia8](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/include/Generators/GeneratorPythia8.h) as it is done [here](https://github.com/AliceO2Group/O2DPG/blob/master/MC/config/PWGLF/pythia8/generator_pythia8_longlived.C).
+
+ahs asdfuy afua ufoyeqwf yadyfa ousdef
