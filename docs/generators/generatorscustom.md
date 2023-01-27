@@ -21,3 +21,31 @@ In addition, only particles with a HepMC status of 1 will be tracked (that was t
 ## Tweak existing generators
 
 Of course, one can also derive from an aleady fully-functional genreator implementations, for instance from [`GeneratorPythia8](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/include/Generators/GeneratorPythia8.h) as it is done [here](https://github.com/AliceO2Group/O2DPG/blob/master/MC/config/PWGLF/pythia8/generator_pythia8_longlived.C).
+
+
+## Troubleshooting
+
+Here are a few more hints and the solution to common issues you might face
+
+### ROOTCLING/CLING-related problems
+
+When you include headers in the macro, the following or similar errors and warnings might occur during runtime:
+```bash
+<path/to/your/software>/O2/o2-latest/include/DetectorsCommonDataFormats/UpgradesStatus.h:16:9: warning: 'ENABLE_UPGRADES' macro redefined [-Wmacro-redefined]
+#define ENABLE_UPGRADES
+        ^
+...
+<path/to/your/software>/FairLogger/v1.11.1-2/include/fairlogger/Logger.h:435:48: note: expanded from macro 'FAIR_LOGF'
+#define FAIR_LOGF(severity, ...) LOG(severity) << fmt::sprintf(__VA_ARGS__)
+...
+```
+The problem here is that `ROOT` can find already quite few header files (as well as libraries) and dictionaries and therefore has knowledge about definitions and symbols therein. To solve this problem, an include guard has to be added to the top of the macro like so
+```c++
+#if !defined(__CLING__) || defined(__ROOTCLING__)
+
+# ..the headers go here.
+
+#endif
+```
+Note that this is true for `O2`-related headers as well as `FairRoot` and all other software packages that make their classes and functions known via `ROOT` dictionaries and are added to `ROOT_INCLUDE_PATH`. For other headers and libraries that do not have dicionaries, you might need the includes and also load the libraries.
+You can have a look [here](https://github.com/njacazio/O2DPG/blob/8b6feb295867394663c2a1b01a736cfaed8449c1/MC/config/PWGDQ/EvtGen/GeneratorEvtGen.C) for an example of how the `EvtGen` package/library comes in.
