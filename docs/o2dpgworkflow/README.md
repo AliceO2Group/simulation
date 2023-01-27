@@ -68,8 +68,15 @@ Often what you might want to do is running the full chain to obtain final `AO2D.
 
 For the runner, it is not strictly possible to respect `--mem-limit <mem limit [MB]>` and `--cpu-limit <numpber of CPUS>` at all times. Indeed, each task comes with *resource estimates* from which the runner decides whether or not a task can be launched. So it can happen in a few rare cases that the resource limits are exceeded for a short amount of time.
 
-If the runner just stops without any error although your target tasks have not yet been run, that points to the fact that either you restricted the resources too much or that your machine does not have enough resources to offer in the first place.
-In the former case, try to increase `--mem-limit <mem limit [MB]>` or `--cpu-limit <numpber of CPUS>`. Most of the times when this happens it is the memory that is too small.
+If the runner just stops with
+```bash
+runtime error: Not able to make progress: Nothing scheduled although non-zero candidate set
+
+**** Pipeline done with failures (global_runtime : 250.285s) *****
+```
+that points to the fact that either you restricted the resources too much or that your machine does not have enough resources to offer in the first place.
+
+In the former case, try to increase `--mem-limit <mem limit [MB]>` or `--cpu-limit <numpber of CPUS>`. Most of the times when this happens it is the memory that is too small. But it might also be the case that you choose the `--cpu-limit` too high or the number of simulation workers exceeds the `--cpu-limit`.
 
 If your target task is the AOD creation but the final merging of AODs from several time frames fails, most likely you have not loaded the `O2Physics` environment. However, `O2Physics` is implied when loading `O2sim`.
 
