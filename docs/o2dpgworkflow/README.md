@@ -64,6 +64,32 @@ The runner tries to execute as many tasks in parallel as possible. So while in t
 
 Often what you might want to do is running the full chain to obtain final `AO2D.root`. To achieve this and to not run tasks that are not needed, pass `-tt aod`.
 
+### About finished tasks
+
+Once a task is done, it will never be repeated unless you delete the `<task_name>_log_done` in the directory. Remove that file and run again.
+ To make sure that all depending tasks are properly rerun, consider launching the runner with
+```bash
+${O2DPG_ROOT}/MC/bin/o2_dpg_workflow_runner.py -f workflow.json --rerun-from <task_name> -tt <your_target_task>
+```
+and there is no need to remove `<task_name>_log_done`.
+
+Indeed, you can simply rerun from one task and at the same time define it be the target task and no file removal is necessary, just do
+```bash
+${O2DPG_ROOT}/MC/bin/o2_dpg_workflow_runner.py -f workflow.json --rerun-from <task_name> -tt <task_name>
+```
+
+## QC and additional steps
+
+The standard QC steps can be included in the workflow with the flag `--include-qc`. To run all QC tasks, do
+```bash
+${O2DPG_ROOT}/MC/bin/o2_dpg_workflow_runner.py -f workflow.json --target-labels QC
+```
+
+In addition, there is a small set of analyses that can be included in the workflow. They are meant for testing purposes and their configuration is not optimised to produce state-of-the-art analysis results. But you can use that to make sure that the AODs are generally sane. To configure a workflow, pass the `--inlcude-analysis` and then launch the runner
+```bash
+${O2DPG_ROOT}/MC/bin/o2_dpg_workflow_runner.py -f workflow.json --target-labels Analysis
+```
+
 ### Troubleshooting
 
 For the runner, it is not strictly possible to respect `--mem-limit <mem limit [MB]>` and `--cpu-limit <numpber of CPUS>` at all times. Indeed, each task comes with *resource estimates* from which the runner decides whether or not a task can be launched. So it can happen in a few rare cases that the resource limits are exceeded for a short amount of time.
