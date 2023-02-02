@@ -43,4 +43,12 @@ It is of course not possible to simulate more events than those simulated during
 
 Comparing the produced hits with those from the reference run it is possible to omit steps/particle production which have a negligible impact on the hits and hence on digits. As a result, the detector simulation can be tuned to be faster and more efficient.
 
+## O2TrivialMCEngine
+
+This engine is not an actual engine but it serves as a kind of placeholder for scenarios in which no real engine is needed. Currently, there is one particular use case which is when only the [kinematics](mckine.md) of primaries is of interest. Such a run is typically initiated with
+```bash
+o2-sim --noGeant
+```
+It is indeed not necessary to explcicitly specify the engine, it is set automatically.
+
 **...under construction...**
