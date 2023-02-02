@@ -31,6 +31,8 @@ int analyseKine(const char* path)
             // do something for each track
         }
     }
+
+    return 0;
 }
 ```
 In the loop over the tracks all kinds of things might be done:

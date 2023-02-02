@@ -23,16 +23,16 @@ As mentioned, a medium defines the physical properties of a volume. These are de
 
 However, there are some additional properties that can be modified at runtime. An important type of those properties are production cut thresholds for particles. When a particle traverses the detector, a certain interaction with the material (also called physics process) can lead to the production of secondary particles.
 In reality, all of those particles would be produced, however, in simulation one has the possibility to suppress the production of particles below a certain energy threshold. The following cut parameters are available:
-`CUTGAM`: gammas,
-`CUTELE`: electrons,
-`CUTNEU`: neutral hadrons,
-`CUTHAD`: charged hadrons,
-`CUTMUO`: muons,
-`BCUTE`: electron bremsstrahlung,
-`BCUTM`: muon and hadron bremsstrahlung,
-`DCUTE`: delta-rays by electrons,
-`DCUTM`: delta-rays by muons,
-`PPCUTM`: direct pair production by muons.
+* `CUTGAM`: gammas,
+* `CUTELE`: electrons,
+* `CUTNEU`: neutral hadrons,
+* `CUTHAD`: charged hadrons,
+* `CUTMUO`: muons,
+* `BCUTE`: electron bremsstrahlung,
+* `BCUTM`: muon and hadron bremsstrahlung,
+* `DCUTE`: delta-rays by electrons,
+* `DCUTM`: delta-rays by muons,
+* `PPCUTM`: direct pair production by muons.
 
 They are set globally [here](https://github.com/AliceO2Group/AliceO2/blob/dev/Detectors/gconfig/src/SetCuts.cxx).
 
