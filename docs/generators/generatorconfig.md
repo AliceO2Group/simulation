@@ -7,10 +7,10 @@ title: Generator configuration
 
 There are various ways to pass specific generator configurations to the simulation run. For instance
 ```bash
-o2-sim --configFile <path/to/config.ini>`
+o2-sim --configFile <path/to/config.ini>
 ```
 
-Similarly, this works for the [`o2dpg_sim_workflow.py](../o2dpgworkflow/README.md/#o2dpg-workflows) with
+Similarly, this works for the [`o2dpg_sim_workflow.py`](../o2dpgworkflow/README.md/#o2dpg-workflows) with
 ```bash
 o2dpg_sim_workflow.py -gen pythia8 -ini <path/to/condig.ini>
 ```
