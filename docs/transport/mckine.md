@@ -26,7 +26,7 @@ int analyseKine(const char* path)
     std::vector<o2::MCTracks>* tracks{};
     tree->SetBranchAddress("MCTrack", &tracks);
     for (int ev = 0; ev < tree->GetEntries(); i++) {
-        tree->GetEntry();
+        tree->GetEntry(ev);
         for (auto& track : *tracks) {
             // do something for each track
         }

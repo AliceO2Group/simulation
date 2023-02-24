@@ -66,7 +66,7 @@ The following options are available:
 
 There is further documentation on [generators](../generators/) and [transport engines](../transport/engines.md). For module and detector composition, please see [below](#simulation-geometry-modules-and-detectors).
 
-## Expert control** via environment variables
+## Expert control via environment variables
 
 `o2-sim` is sensitive to the following environment variables:
 
