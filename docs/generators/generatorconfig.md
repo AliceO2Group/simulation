@@ -71,6 +71,8 @@ On top of that it is made sure that the particles' status codes are set correctl
 
 For a test example, please refer to [this test](https://github.com/AliceO2Group/O2DPG/blob/546ec5d03a57d189b4ea3c92c5a8e1d7af812d41/MC/config/PWGDQ/ini/tests/GeneratorHF_JPsiToMuons_fwdy.C).
 
+**Note** that the tests are also triggered when macros mentioned in some configuration file are changed or when a test itself changes.
+
 ### Run the test locally
 
 You do not have to wait for the CI to tell you that something does not work but you can make sure that everything is working already on your development machine if possible. To do so, you have to have an appropriate software environment loaded;
