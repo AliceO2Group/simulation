@@ -49,6 +49,6 @@ This engine is not an actual engine but it serves as a kind of placeholder for s
 ```bash
 o2-sim --noGeant
 ```
-It is indeed not necessary to explcicitly specify the engine, it is set automatically.
+It is indeed not necessary to explicitly specify the engine, it is set automatically.
 
 **...under construction...**
