@@ -29,12 +29,12 @@ ${O2DPG_ROOT}/MC/bin/o2dpg_sim_workflow.py -gen <generator> -eA <energy of first
 ```
 meaning that at least the beam energies and the generator must be specified.
 
-If you use `pythia8` as your generator **and you do not** pass a process with `-proc <process>`, the simulation will fail due to a missing configuration (see also [here](../generators/generatorso2.md#pythia8)). Hence, also here one eneds to pass a valid configuration, but this time like so
+If you use `pythia8` as your generator **and you do not** pass a process with `-proc <process>`, the simulation will fail due to a missing configuration (see also [here](../generators/generatorso2.md#pythia8)). Hence, also here one needs to pass a valid configuration, but this time like so
 ```bash
 ${O2DPG_ROOT}/MC/bin/o2dpg_sim_workflow.py -gen pythia8 -eCM <emc energy  [GeV]> -confKey "GeneratorPythia8.config=<path/to/config>"
 ```
 
-Simulations run from a workflow are done in units of timeframes and the number of timeframes to be simulated is set with `-tf <nTFs>`. The number of events generated per timframe is given by `-ns <nEvents>` (optional, since it has a default value set).
+Simulations run from a workflow are done in units of timeframes and the number of timeframes to be simulated is set with `-tf <nTFs>`. The number of events generated per timeframe is given by `-ns <nEvents>` (optional, since it has a default value set).
 
 By default, the workflow description is written to `workflow.json`.
 
@@ -56,7 +56,7 @@ ${O2DPG_ROOT}/MC/bin/o2_dpg_workflow_runner.py -f workflow.json
 There are a few very useful command-line options for this one though
 * `-tt <regex>` which specifies the "target task" up to which the workflow should be executed,
 * `--mem-limit <mem limit [MB]>`: instructs the runner to only execute tasks so that the memory limit is not exceeded,
-* `--cpu-limit <numpber of CPUS>`: instructs the runner to only execute tasks so that the CPUlimit is not exceeded.
+* `--cpu-limit <number of CPUS>`: instructs the runner to only execute tasks so that the CPUlimit is not exceeded.
 * `--rerun-from <regex>`: force the runner to start at given tasks whose name matches the `<regex>`,
 * `--target-labels <list> <of> <target> <labels>`: each task has labels assigned; run all tasks that have at least one of the specified labels.
 
@@ -85,14 +85,14 @@ The standard QC steps can be included in the workflow with the flag `--include-q
 ${O2DPG_ROOT}/MC/bin/o2_dpg_workflow_runner.py -f workflow.json --target-labels QC
 ```
 
-In addition, there is a small set of analyses that can be included in the workflow. They are meant for testing purposes and their configuration is not optimised to produce state-of-the-art analysis results. But you can use that to make sure that the AODs are generally sane. To configure a workflow, pass the `--inlcude-analysis` and then launch the runner
+In addition, there is a small set of analyses that can be included in the workflow. They are meant for testing purposes and their configuration is not optimised to produce state-of-the-art analysis results. But you can use that to make sure that the AODs are generally sane. To configure a workflow, pass the `--include-analysis` and then launch the runner
 ```bash
 ${O2DPG_ROOT}/MC/bin/o2_dpg_workflow_runner.py -f workflow.json --target-labels Analysis
 ```
 
 ### Troubleshooting
 
-For the runner, it is not strictly possible to respect `--mem-limit <mem limit [MB]>` and `--cpu-limit <numpber of CPUS>` at all times. Indeed, each task comes with *resource estimates* from which the runner decides whether or not a task can be launched. So it can happen in a few rare cases that the resource limits are exceeded for a short amount of time.
+For the runner, it is not strictly possible to respect `--mem-limit <mem limit [MB]>` and `--cpu-limit <number of CPUs>` at all times. Indeed, each task comes with *resource estimates* from which the runner decides whether or not a task can be launched. So it can happen in a few rare cases that the resource limits are exceeded for a short amount of time.
 
 If the runner just stops with
 ```bash
@@ -102,7 +102,7 @@ runtime error: Not able to make progress: Nothing scheduled although non-zero ca
 ```
 that points to the fact that either you restricted the resources too much or that your machine does not have enough resources to offer in the first place.
 
-In the former case, try to increase `--mem-limit <mem limit [MB]>` or `--cpu-limit <numpber of CPUS>`. Most of the times when this happens it is the memory that is too small. But it might also be the case that you choose the `--cpu-limit` too high or the number of simulation workers exceeds the `--cpu-limit`.
+In the former case, try to increase `--mem-limit <mem limit [MB]>` or `--cpu-limit <number of CPUs>`. Most of the times when this happens it is the memory that is too small. But it might also be the case that you choose the `--cpu-limit` too high or the number of simulation workers exceeds the `--cpu-limit`.
 
 If your target task is the AOD creation but the final merging of AODs from several time frames fails, most likely you have not loaded the `O2Physics` environment. However, `O2Physics` is implied when loading `O2sim`.
 

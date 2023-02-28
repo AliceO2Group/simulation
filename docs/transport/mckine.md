@@ -17,7 +17,7 @@ In fact, before running a full simulation or even a large-scale production, it s
 
 ## How to browse the kinematics file
 
-Usually, the file is called `<prefix>_Kine.root` and it contains a tree `o2sim`. The brnach that is typically most important to look at is `MCTracks` which stores - per event - `std::vector<o2::MCTrack>`. The first part of an example macro might look like
+Usually, the file is called `<prefix>_Kine.root` and it contains a tree `o2sim`. The branch that is typically most important to look at is `MCTracks` which stores - per event - `std::vector<o2::MCTrack>`. The first part of an example macro might look like
 ```cpp
 int analyseKine(const char* path)
 {
@@ -38,7 +38,7 @@ int analyseKine(const char* path)
 In the loop over the tracks all kinds of things might be done:
 * check PDG properties,
 * check kinematics or production vertex,
-* check child-parent relatiions among particles,
+* check child-parent relations among particles,
 * etc.
 There are various different methods to access the properties of an `o2::MCTrack` object as can be seen in the [source code](https://github.com/AliceO2Group/AliceO2/blob/dev/DataFormats/simulation/include/SimulationDataFormat/MCTrack.h).
 

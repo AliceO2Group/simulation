@@ -75,8 +75,11 @@ For a test example, please refer to [this test](https://github.com/AliceO2Group/
 
 ### Run the test locally
 
-You do not have to wait for the CI to tell you that something does not work but you can make sure that everything is working already on your development machine if possible. To do so, you have to have an appropriate software environment loaded;
+You do not have to wait for the CI but you can make sure that everything is working already on your development machine if possible. To do so, you have to have an appropriate software environment loaded;
 preferrably that could be `O2sim`, but `O2` in conjunction with `O2DPG` works as well (unless you need additional packages, such as for instance [AEGIS](https://github.com/AliceO2Group/AEGIS)).
+
+The test is designed to check code changes and to test their impact. In order for the test script to detect changes, it uses `git`.
+If there are no unsatged changes in `${O2DPG_SOURCE}` and everything is committed, the test will by default compare `HEAD` (assuming that this contains the relevant changes you made) with `HEAD~1`. If there are unstaged changes, the current unstaged changes will be assumed to be the relevant changes to be tested against `HEAD`.
 
 Assume your local `O2DPG` source directory is at `${O2DPG_SOURCE}`. Then you can run the test with
 ```bash
@@ -84,10 +87,28 @@ O2DPT_TEST_REPO_DIR=${O2DPG_SOURCE} ${O2DPG_ROOT}/test/run_generator_tests.sh
 ```
 The output will be written to `o2dpg_tests`.
 
-If there are no unsatged changes and everything is already committed, the test will by default compare `HEAD` with `HEAD~1`. If there are unstaged changes, the current unstaged changes will be compared with `HEAD`.
-
-There are additional environment variables and options one can set. Simply type
+There are additional environment variables and options one can set. The `-h` will tell what is possible:
 ```bash
 ${O2DPG_ROOT}/test/run_generator_tests.sh -h
+
+usage: run_tests.sh [--fail-immediately] [--keep-artifacts]
+
+  FLAGS:
+
+  --fail-immediately : abort as soon as the first tests fails
+  --keep-artifacts : keep simulation and tests artifacts, by default everything but the logs is removed after each test
+
+  ENVIRONMENT VARIABLES:
+
+  O2DPG_TEST_REPO_DIR : Point to the source repository you want to test. (required if the current or parent directory is not the git repository to be tested)
+  O2DPG_TEST_HASH_BASE : The base hash you want to use for comparison (optional)
+  O2DPG_TEST_HASH_HEAD : The head hash you want to use for comparison (optional)
+
+  If O2DPG_TEST_HASH_BASE is not set, it will be looked for ALIBUILD_BASE_HASH.
+  If also not set, this will be set to HEAD~1. However, if there are unstaged
+  changes, it will be set to HEAD.
+
+  If O2DPG_TEST_HASH_HEAD is not set, it will be looked for ALIBUILD_HEAD_HASH.
+  If also not set, this will be set to HEAD. However, if there are unstaged
+  changes, it will left blank.
 ```
-to get the full help message.

@@ -15,12 +15,12 @@ The central step to make sure that created particles will find their way to the 
 are set correctly (see [here](README.md#generator-status-codes-flagging-particles-to-be-trackedtransported)).
 Hence, making sure that a particle will/won't be tracked and that it always has a correctly encoded status code is the responsibility of the user responsible for the custom generator implementation.
 
-If you derive from `GeneratorTGenerator` and neither override `Generator::importParticles` nor change `Generator::mParticles` yourself, note that all particles will be checked automatically for a correct status encodeing. If it is found to be not encoded, the `TParticle`'s status code is **assumed to be the HepMC code**.
+If you derive from `GeneratorTGenerator` and neither override `Generator::importParticles` nor change `Generator::mParticles` yourself, note that all particles will be checked automatically for a correct status encoding. If it is found to be not encoded, the `TParticle`'s status code is **assumed to be the HepMC code**.
 In addition, only particles with a HepMC status of 1 will be tracked (that was the default behaviour of Run2 simulations).
 
 ## Tweak existing generators
 
-Of course, one can also derive from an aleady fully-functional genreator implementations, for instance from [`GeneratorPythia8](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/include/Generators/GeneratorPythia8.h) as it is done [here](https://github.com/AliceO2Group/O2DPG/blob/master/MC/config/PWGLF/pythia8/generator_pythia8_longlived.C).
+Of course, one can also derive from an already fully-functional generator implementations, for instance from [`GeneratorPythia8](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/include/Generators/GeneratorPythia8.h) as it is done [here](https://github.com/AliceO2Group/O2DPG/blob/master/MC/config/PWGLF/pythia8/generator_pythia8_longlived.C).
 
 
 ## Troubleshooting
@@ -47,5 +47,5 @@ The problem here is that `ROOT` can find already quite few header files (as well
 
 #endif
 ```
-Note that this is true for `O2`-related headers as well as `FairRoot` and all other software packages that make their classes and functions known via `ROOT` dictionaries and are added to `ROOT_INCLUDE_PATH`. For other headers and libraries that do not have dicionaries, you might need the includes and also load the libraries.
+Note that this is true for `O2`-related headers as well as `FairRoot` and all other software packages that make their classes and functions known via `ROOT` dictionaries and are added to `ROOT_INCLUDE_PATH`. For other headers and libraries that do not have dictionaries, you might need the includes and also load the libraries.
 You can have a look [here](https://github.com/njacazio/O2DPG/blob/8b6feb295867394663c2a1b01a736cfaed8449c1/MC/config/PWGDQ/EvtGen/GeneratorEvtGen.C) for an example of how the `EvtGen` package/library comes in.

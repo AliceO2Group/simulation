@@ -20,4 +20,4 @@ A typical (exemplary) invocation is of the form
 ```bash
 o2-sim -n 10 -g pythia8pp -e TGeant4 -j 2 --skipModules ZDC,PHS
 ```
-which would launch a simulation for 10 pythia8 events on the whole ALICE detector but ZDC and PHOS, using Geant4 on 2 parallel worker processes. There is a variaty of command-line arguments to configure the simulation. For a detailed list, please refer to the [transport section](../transport/).
+which would launch a simulation for 10 pythia8 events on the whole ALICE detector but ZDC and PHOS, using Geant4 on 2 parallel worker processes. There is a variety of command-line arguments to configure the simulation. For a detailed list, please refer to the [transport section](../transport/).
