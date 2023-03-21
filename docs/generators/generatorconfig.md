@@ -12,7 +12,7 @@ o2-sim --configFile <path/to/config.ini>
 
 Similarly, this works for the [`o2dpg_sim_workflow.py`](../o2dpgworkflow/README.md/#o2dpg-workflows) with
 ```bash
-o2dpg_sim_workflow.py -gen pythia8 -ini <path/to/condig.ini>
+o2dpg_sim_workflow.py -gen pythia8 -ini <path/to/config.ini>
 ```
 
 This way is the preferred way and we are indeed now in a transition phase after which this will be the only accepted way of generator configuration for official productions on the GRID. In addition, the configuration files must be found in the [O2DPG Git repository](https://github.com/AliceO2Group/O2DPG).
@@ -26,7 +26,7 @@ In the given example, there is `Pythia8` and `External` defined in the file. Tha
 
 ## Generator tests
 
-For at least one generator that is configured by an `ini` file, there must be a test in O2DPG available. This **has to be placed** in `O2DPG/MC/config/<PWG>/ini/tests/<config>.C`. Hence, it must have the same name as the confguration it refers to one directory above. What is expected to be tested is the integrity of the `o2sim_Kine.root` file which is produced by a simulation run.
+For at least one generator that is configured by an `ini` file, there must be a test in O2DPG available. This **has to be placed** in `O2DPG/MC/config/<PWG>/ini/tests/<config>.C`. Hence, it must have the same name as the configuration it refers to one directory above. What is expected to be tested is the integrity of the `o2sim_Kine.root` file which is produced by a simulation run.
 In a test, you can always assume it is there in the current directory. There is also more information on [MC kinematic files](../transport/mckine.md).
 
 A test macro has the following form:
@@ -66,7 +66,7 @@ int External()
 
 **The CI test will fail if there is not at least one generator tested.** The return type must be an integer, where `0` marks success and any other value indicates failure.
 
-In addition, the `o2sim_Kine.root` is automatically tested by some generic tests. For insatnce it will made sure that there are particles that are marked to be transported. If not, the test will also fail.
+In addition, the `o2sim_Kine.root` is automatically tested by some generic tests. For instance it will made sure that there are particles that are marked to be transported. If not, the test will also fail.
 On top of that it is made sure that the particles' status codes are set correctly (for more information on status code see [here](README.md/#generator-status-codes-flagging-particles-to-be-trackedtransported)).
 
 For a test example, please refer to [this test](https://github.com/AliceO2Group/O2DPG/blob/546ec5d03a57d189b4ea3c92c5a8e1d7af812d41/MC/config/PWGDQ/ini/tests/GeneratorHF_JPsiToMuons_fwdy.C).
@@ -76,10 +76,10 @@ For a test example, please refer to [this test](https://github.com/AliceO2Group/
 ### Run the test locally
 
 You do not have to wait for the CI but you can make sure that everything is working already on your development machine if possible. To do so, you have to have an appropriate software environment loaded;
-preferrably that could be `O2sim`, but `O2` in conjunction with `O2DPG` works as well (unless you need additional packages, such as for instance [AEGIS](https://github.com/AliceO2Group/AEGIS)).
+preferably that could be `O2sim`, but `O2` in conjunction with `O2DPG` works as well (unless you need additional packages, such as for instance [AEGIS](https://github.com/AliceO2Group/AEGIS)).
 
 The test is designed to check code changes and to test their impact. In order for the test script to detect changes, it uses `git`.
-If there are no unsatged changes in `${O2DPG_SOURCE}` and everything is committed, the test will by default compare `HEAD` (assuming that this contains the relevant changes you made) with `HEAD~1`. If there are unstaged changes, the current unstaged changes will be assumed to be the relevant changes to be tested against `HEAD`.
+If there are no unstaged changes in `${O2DPG_SOURCE}` and everything is committed, the test will by default compare `HEAD` (assuming that this contains the relevant changes you made) with `HEAD~1`. If there are unstaged changes, the current unstaged changes will be assumed to be the relevant changes to be tested against `HEAD`.
 
 Assume your local `O2DPG` source directory is at `${O2DPG_SOURCE}`. Then you can run the test with
 ```bash

@@ -15,9 +15,11 @@ Several examples can be found at <https://gitlab.cern.ch/aliperf/alibibenchtasks
 
 It is best to build and load at least the `O2sim` environment from `alienv`.
 
-## Some useful information
+## Prerequisites
 
 It is not possible to cover all use cases here but a few important remarks and pointers are summarised in the following.
+
+The usage of the workflows requires at least `16 GB` of RAM and an `8`-core machine. Especially in case your machine has exactly `16 GB`, please refer to [these instructions](#adjusting-resources)
 
 ## Workflow creation
 
@@ -90,20 +92,18 @@ In addition, there is a small set of analyses that can be included in the workfl
 ${O2DPG_ROOT}/MC/bin/o2_dpg_workflow_runner.py -f workflow.json --target-labels Analysis
 ```
 
-### Troubleshooting
+## Adjusting resources
 
-For the runner, it is not strictly possible to respect `--mem-limit <mem limit [MB]>` and `--cpu-limit <number of CPUs>` at all times. Indeed, each task comes with *resource estimates* from which the runner decides whether or not a task can be launched. So it can happen in a few rare cases that the resource limits are exceeded for a short amount of time.
-
-If the runner just stops with
+If you find the runner terminating with
 ```bash
 runtime error: Not able to make progress: Nothing scheduled although non-zero candidate set
 
 **** Pipeline done with failures (global_runtime : 250.285s) *****
 ```
-that points to the fact that either you restricted the resources too much or that your machine does not have enough resources to offer in the first place.
 
-In the former case, try to increase `--mem-limit <mem limit [MB]>` or `--cpu-limit <number of CPUs>`. Most of the times when this happens it is the memory that is too small. But it might also be the case that you choose the `--cpu-limit` too high or the number of simulation workers exceeds the `--cpu-limit`.
-
-If your target task is the AOD creation but the final merging of AODs from several time frames fails, most likely you have not loaded the `O2Physics` environment. However, `O2Physics` is implied when loading `O2sim`.
+and at the same time your system has `16 GB` of RAM, try to artificially increase the memory limit for the runner with
+```bash
+${O2DPG_ROOT}/MC/bin/o2_dpg_workflow_runner.py -f workflow.json -tt aod --mem-limit 18000
+```
 
 {% include list.liquid all=true %}
