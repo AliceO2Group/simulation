@@ -19,7 +19,8 @@ It is best to build and load at least the `O2sim` environment from `alienv`.
 
 It is not possible to cover all use cases here but a few important remarks and pointers are summarised in the following.
 
-The usage of the workflows requires at least `16 GB` of RAM and an `8`-core machine. Especially in case your machine has exactly `16 GB`, please refer to [these instructions](#adjusting-resources)
+The usage of the workflows requires at least `16 GB` of RAM and an `8`-core machine. Especially in case your machine has exactly `16 GB`, please refer to [these instructions](#adjusting-resources).
+You need a valid GRID token to access the CCDB objects/alien. Please refer to https://alice-doc.github.io/alice-analysis-tutorial/start/cert.html if you need guidance on how to set this up.
 
 ## Workflow creation
 
@@ -105,5 +106,42 @@ and at the same time your system has `16 GB` of RAM, try to artificially increas
 ```bash
 ${O2DPG_ROOT}/MC/bin/o2_dpg_workflow_runner.py -f workflow.json -tt aod --mem-limit 18000
 ```
+
+## Troubleshooting
+
+### What are the interesting log files?
+
+When a certain stage in the workflow crashes, the workflow runner exist with something like
+```bash
+command ${O2_ROOT}/bin/o2-sim-digitizer-workflow -b --run --condition-not-after 3385078236000 -n 1 --sims sgn_1 --onlyDet FT0,FV0,CTP --interactionRate 50000 --incontext collisioncontext.root --disable-write-ini --configKeyValues "HBFUtils.orbitFirstSampled=0;HBFUtils.nHBFPerTF=128;HBFUtils.orbitFirst=0;HBFUtils.runNumber=310000;HBFUtils.startTime=1550600800000" --combine-devices had nonzero exit code 1
+Stop on failure  True
+setting up ROOT system
+ft0fv0ctp_digi_1 failed ... checking retry
+```
+The suffix `_<i>` refers to the affected timeframe, hence in this case the log file of interest would be `tf1/ft0fv0ctp_digi_1.log`.
+
+There is a special case for when the detector transport aborts. In that case, the reported log file would be `tf<i>/sgnsim_<i>.log` or `bkgsim.log`. Since the detector simulation launches multiple workers, there are additional logs where the workers' output is piped into. These are
+1. `tf<i>/sgn_<i>_workerlog0`,
+1. `tf<i>/sgn_<i>_serverlog`,
+1. `tf<i>/sgn_<i>_mergerlog`.
+
+### When a workflow run crashes
+
+1. Make sure that O2 and O2DPG are compatible. Although O2DPG is a standalone package containing mostly scripts **using/executing** O2 code, some O2 features (such as particular arguments for certain executables) might be incompatible between the utilised O2 and O2DPG versions.
+1. If you have a custom local installation oif the software but you would expect a workflow to run through for good reasons, then
+    1. check the integrity of your installation,
+    1. potentially update your installation (not only update the development packages but also `alidist`),
+    1. run the workflow via a software version from `cvmfs` (e.g. available on `lxplus`),
+    1. try a different machine/working environment (e.g. `lxplus` might work if the workflow is not too heavy).
+
+1. In case of corrupt CCDB objects, this could be a genuine problem. However, in case of a hickup, a corrupted object might be stored in the local CCDB snapshot. Note, that the snapshot is usually stored in a hidden directory `.ccdb`.
+    1. You can try to remove the affected snapshot and rerun from where you are.
+    1. You can completely remove everything **including** the `.ccdb` directory. Note, that a simple `rm -r *` would **not** remove the hidden directory.
+    1. If the problem persists and you think it is genuine, please get in touch.
+
+### When a workflow run hangs
+
+1. Make sure that O2 and O2DPG are compatible. Although O2DPG is a standalone package containing mostly scripts **using/executing** O2 code, some O2 features (such as particular arguments for certain executables) might be incompatible between the utilised O2 and O2DPG versions.
+1. Kill the run and inspect the log files of the hanging task (see [above](#what-are-the-interesting-log-files)).
 
 {% include list.liquid all=true %}
