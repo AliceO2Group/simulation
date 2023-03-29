@@ -1,15 +1,21 @@
 ---
 sort: 4
-title: O2DPG workflows
+title: MC production setup: O2DPG workflows
 ---
 
-# O2DPG Workflows
+# Run3 production setup: O2DPG MC Workflows
 
-There are 2 tuility scripts provided in O2DPG
+The [O2DPG repository](https://github.com/AliceO2Group/O2DPG) provides the authorative setup for official MC productions for ALICE-Run3.
+It integrates all relevant processing tasks used in simulation into a coherent and consistent environment/framework. It offers a complete simulation pipeline, from event generation, Geant transport, reconstruction, AOD creation to running QC or analysis tasks.
+
+In O2DPG, the logic and configuration of a MC job is separated from the runtime engine that executes a MC job
+on a compute node.
+
+In this regard, there are 2 essential scripts provided in O2DPG
 1. [o2dpg_sim_workflow.py](https://github.com/AliceO2Group/O2DPG/blob/master/MC/bin/o2dpg_sim_workflow.py),
 1. [o2_dpg_workflow_runner.py](https://github.com/AliceO2Group/O2DPG/blob/master/MC/bin/o2_dpg_workflow_runner.py).
 
-The first script is used to create a workflow tree describing the necessary steps and dependencies from simulation to final AOD creation while the latter is capable of executing all requested/required steps.
+The first script is used to create a workflow tree, in JSON format, describing the necessary steps and dependencies from simulation to final AOD creation. The second tool is the runtime engine that takes care of executing such workflow on a compute node.
 
 Several examples can be found at <https://gitlab.cern.ch/aliperf/alibibenchtasks>. **N.B.** These tasks are run nightly on a test machine so these scripts are constantly maintained.
 
