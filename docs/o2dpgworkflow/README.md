@@ -1,6 +1,6 @@
 ---
 sort: 4
-title: MC production setup: O2DPG workflows
+title: Run3 production setup: O2DPG MC Workflows
 ---
 
 # Run3 production setup: O2DPG MC Workflows
