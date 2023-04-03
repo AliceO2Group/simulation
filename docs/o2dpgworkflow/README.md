@@ -1,9 +1,9 @@
 ---
 sort: 4
-title: Run3 production setup: O2DPG MC Workflows
+title: Run3 production setup - O2DPG MC Workflows
 ---
 
-# Run3 production setup: O2DPG MC Workflows
+# Run3 production setup - O2DPG MC Workflows
 
 The [O2DPG repository](https://github.com/AliceO2Group/O2DPG) provides the authorative setup for official MC productions for ALICE-Run3.
 It integrates all relevant processing tasks used in simulation into a coherent and consistent environment/framework. It offers a complete simulation pipeline, from event generation, Geant transport, reconstruction, AOD creation to running QC or analysis tasks.
