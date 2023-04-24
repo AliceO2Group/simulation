@@ -18,9 +18,11 @@ A few ways exist to make use of the GRID computing power for simulation:
 Official productions for ALICE physics working groups or larger productions for research and development
 (detector groups, etc.) should be handled via the Data Processing Group (DPG).
 
-A ticket with type "Production Request" should be created in [JIRA](https://alice.its.cern.ch/jira/projects/O2), explaining the purpose, the setup, the software version to be used and so on. The production will then be orchestrated by the DPG production manager.
+A ticket with type "Production Request" should be created in [JIRA](https://alice.its.cern.ch/jira/projects/O2), explaining the purpose, the setup, the software version to be used and so on. The production will then be orchestrated by the DPG production manager. 
+Note that a ticket is also needed for test requests, no mail requests will be accepted.
 
-Productions may need to be approved by the Physics Board depending on resource usage.
+Productions may need to be approved by the Physics Board depending on resource usage. 
+The CPU limit for tests or productions without Physics board approval is 1d@10kCPUs.
 
 ## Personal (development or test) productions
 
