@@ -35,6 +35,22 @@ int analyseKine(const char* path)
     return 0;
 }
 ```
+
+A 2nd, suggested, method is to use the MCKinematicsReader class:
+```c++
+// init the reader from the transport kinematics file (assuming here prefix o2sim)
+o2::steer::MCKinematicsReader reader("o2sim", o2::steer::MCKinematicsReader::Mode::kMCKine);
+
+// loop over all events in the file
+for (int event = 0; event < reader.getNEvents(0); ++event) {
+  // get all Monte Carlo tracks for this event
+  std::vector<MCTrack> const& tracks = reader.getTracks(event);
+
+  // analyse tracks
+}
+```
+Next to reading pure kinematic files, the MCKinematicsReader also offers functionality to retrieve tracks for a given MC label.
+
 In the loop over the tracks all kinds of things might be done:
 * check PDG properties,
 * check kinematics or production vertex,
