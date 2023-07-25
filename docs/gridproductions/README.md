@@ -34,7 +34,7 @@ with the GRID services. Documentation can be found [here](https://jalien.docs.ce
 
 
 The process of setting up JDLs and copying necessary files can be cumbersome.
-For this reason, there exists also a [tool](https://github.com/AliceO2Group/O2DPG/blob/master/GRID/utils/grid_submit.sh)
+For this reason, there exists also a [tool](https://github.com/AliceO2Group/O2DPG/blob/master/GRID/utils/grid_submit.sh), called `grid_submit.sh`
 which allows to submit a locally existing script to run on the GRID without much boilerplate. The tool is work-in-progress and needs more generalizations but may be a good starting point.
 
 
