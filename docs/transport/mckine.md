@@ -23,9 +23,9 @@ int analyseKine(const char* path)
 {
     TFile inputKine(path, "READ");
     auto tree = (TTree*)inputKine.Get("o2sim");
-    std::vector<o2::MCTracks>* tracks{};
+    std::vector<o2::MCTrack>* tracks{};
     tree->SetBranchAddress("MCTrack", &tracks);
-    for (int ev = 0; ev < tree->GetEntries(); i++) {
+    for (int ev = 0; ev < tree->GetEntries(); ++ev) {
         tree->GetEntry(ev);
         for (auto& track : *tracks) {
             // do something for each track
