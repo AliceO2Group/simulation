@@ -9,7 +9,7 @@ There are several generators which can be directly specified with `o2-sim -g <ge
 
 ## Pythia8
 
-For Pythia8 there are 4 different options which can be directly called from the command line and can be used without specifying any further options.
+For Pythia8 there are 5 different options which can be directly called from the command line.
 
 ### pythia8
 
@@ -25,6 +25,11 @@ This uses default Pythia8 with the configuration [this configuration](https://gi
 ### pythia8hi
 
 This uses default Pythia8 with the configuration [this configuration](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/share/egconfig/pythia8_hi.cfg).
+
+### pythia8powheg
+
+This uses default Pythia8 with the configuration [this configuration](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/share/egconfig/pythia8_powheg.cfg).
+In addition, that needs a POWHEG output file `powheg.lhe` to be present in the working directory where Pythia8 reads from.
 
 ## Box Generators
 
