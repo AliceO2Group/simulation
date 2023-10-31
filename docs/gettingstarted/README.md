@@ -21,3 +21,13 @@ A typical (exemplary) invocation is of the form
 o2-sim -n 10 -g pythia8pp -e TGeant4 -j 2 --skipModules ZDC,PHS
 ```
 which would launch a simulation for 10 pythia8 events on the whole ALICE detector but ZDC and PHOS, using Geant4 on 2 parallel worker processes. There is a variety of command-line arguments to configure the simulation. For a detailed list, please refer to the [transport section](../transport/).
+
+### Alien GRID token
+
+Running the simulation requires a valid alien token. If you do not yet have a certificate, please follow these [instructions](https://alice-doc.github.io/alice-analysis-tutorial/start/cert.html) and [this](https://alice-doc.github.io/alice-analysis-tutorial/start/cert.html#convert-your-certificate-for-using-the-grid-tools) in particular.
+
+To obtain a token, run
+```bash
+alien-token-init
+```
+after loading your `alienv` environment.
