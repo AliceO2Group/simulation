@@ -39,20 +39,22 @@ int Pythia8()
     std::string path{"o2sim_Kine.root"};
     TFile file(path.c_str(), "READ");
 
-    auto tree = (TTree*)file.Get("o2sim");
-    std::vector<o2::MCTrack>* tracks{};
-    tree->SetBranchAddress("MCTrack", &tracks);
+    o2::steer::MCKinematicsReader reader("o2sim", o2::steer::MCKinematicsReader::Mode::kMCKine);
+    auto nEvents = reader.getNEvents(0); // get events from source 0, which is our only source
 
     // example of looping over events and tracks
     for (int i = 0; i < nEvents; i++) {
-        tree->GetEntry(i);
-        for (auto& track : *tracks) {
+        std::vector<o2::MCTrack> const& tracks = reader.getTracks(i); // this is a short-cut, implicitly source 0
+        for (auto& track : tracks) {
             // do the checks
             // suppose something fails
             if (!trackNotPassed) {
                 return 1;
             }
         }
+        // optionally do some tests on the MCHeader
+        o2::dataformats::MCEventHeader const& header = reader.getMCEventHeader(0, i); // the first is the source, again, we only have that one source
+        // ...
     }
 
     return 0;
@@ -78,16 +80,24 @@ For a test example, please refer to [this test](https://github.com/AliceO2Group/
 You do not have to wait for the CI but you can make sure that everything is working already on your development machine if possible. To do so, you have to have an appropriate software environment loaded;
 preferably that could be `O2sim`, but `O2` in conjunction with `O2DPG` works as well (unless you need additional packages, such as for instance [AEGIS](https://github.com/AliceO2Group/AEGIS)).
 
-The test is designed to check code changes and to test their impact. In order for the test script to detect changes, it uses `git`.
-If there are no unstaged changes in `${O2DPG_SOURCE}` and everything is committed, the test will by default compare `HEAD` (assuming that this contains the relevant changes you made) with `HEAD~1`. If there are unstaged changes, the current unstaged changes will be assumed to be the relevant changes to be tested against `HEAD`.
+First of all, let's agree on terminology for the following
+* `${O2DPG_SOURCE}` shall denote the directory where you develop,
+* `HEAD` is `git` terminology and points to a certain state of your `git` history, usually the latest commit,
+* "unstaged changes" in git are those which are not yet added to be committed (whenever you develop but have not yet done `git add`)
 
-Assume your local `O2DPG` source directory is at `${O2DPG_SOURCE}`. Then you can run the test with
+The test is designed to check code changes and to test their impact. In order for the test script to detect changes, it basically tries to find changed file via `git diff` between a given pair of commits.
+* If there are unstaged changes, the test will compare these changes with respect to `HEAD`.
+* If there are no unstaged changes in `${O2DPG_SOURCE}`, the test will by default compare `HEAD` (assuming that this contains the relevant changes you made) with `HEAD~1`.
+* If you want to provide two specific commits and test everything that has changed between these commits, you need to set `O2DPG_TEST_HASH_BASE=<base-commit>` and `O2DPG_TEST_HASH_HEAD=<later-commit>` (see below).
+
+The full command would be
 ```bash
-O2DPT_TEST_REPO_DIR=${O2DPG_SOURCE} ${O2DPG_ROOT}/test/run_generator_tests.sh
+O2DPT_TEST_REPO_DIR=${O2DPG_SOURCE} O2DPG_TEST_HASH_BASE=<base-commit> O2DPG_TEST_HASH_HEAD=<later-commit> ${O2DPG_ROOT}/test/run_generator_tests.sh
 ```
+
 The output will be written to `o2dpg_tests`.
 
-There are additional environment variables and options one can set. The `-h` will tell what is possible:
+The additional environment variables and options one can set can be seen by running
 ```bash
 ${O2DPG_ROOT}/test/run_generator_tests.sh -h
 
