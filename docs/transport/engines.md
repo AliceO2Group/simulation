@@ -7,7 +7,10 @@ title: Transport engines
 
 ## GEANT4
 
-Information about GEANT4.
+### Scaling hadronic cross sections
+
+Hadronic cross sections can be scaled by passing a specific Geant4 configuration to the transport simulation.
+[This is an example](https://github.com/AliceO2Group/O2DPG/blob/eb3591632fe75ba65ff68353984839c22826a89c/MC/config/PWGLF/xsection/g4config_had_x2.in#L66-L72) where various hadronic cross sections are scaled.
 
 ## FLUKA
 
