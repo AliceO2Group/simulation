@@ -43,7 +43,8 @@ o2::steer::MCKinematicsReader reader("o2sim", o2::steer::MCKinematicsReader::Mod
 
 // loop over all events in the file
 for (int event = 0; event < reader.getNEvents(0); ++event) {
-  // get all Monte Carlo tracks for this event
+  // get all Monte Carlo tracks for this event; not that this is the short version of
+  // std::vector<MCTrack> const& tracks = reader.getTracks(source, event);
   std::vector<MCTrack> const& tracks = reader.getTracks(event);
 
   // analyse tracks
@@ -66,6 +67,40 @@ auto child1 = o2::mcutils::MCTrackNavigator::getDaughter1(track, *tracks);
 ```
 There are a lot more useful methods as you can see in the [source code](https://github.com/AliceO2Group/AliceO2/blob/dev/DataFormats/simulation/include/SimulationDataFormat/MCUtils.h).
 
+## More specific examples
+
+Here are some small snippets with some more specific examples
+
+### Check whether track left hits
+
+This snippet shows how to check whether a track left at least one hits somewhere and also, whether it left a hit in the FV0 detector.
+```c++
+// init the reader from the transport kinematics file (assuming here prefix o2sim)
+o2::steer::MCKinematicsReader reader("o2sim", o2::steer::MCKinematicsReader::Mode::kMCKine);
+
+// this is assuming a simple signal MC, aka only one generator and no embedding
+int source = 0;
+
+// loop over all events in the file
+for (int event = 0; event < reader.getNEvents(0); ++event) {
+  // get all Monte Carlo tracks for this event; not that this is the short version of
+  // std::vector<MCTrack> const& tracks = reader.getTracks(source, event);
+  std::vector<MCTrack> const& tracks = reader.getTracks(event);
+  o2::dataformats::MCEventHeader const& header = reader.getMCEventHeader(source, event);
+  // now we need to know how our detector mask looks like for this event
+  std::vector<int> const& detId2HitBitLUT = header.getDetId2HitBitLUT();
+  // analyse tracks
+  for (auto& track : *tracks) {
+    if (track.hasHits()) {
+      // do something if there is at least a hit somewhere
+    }
+    if (track.leftTrace(o2::detectors::DetID::FV0, detId2HitBitLUT)) {
+      // do something if there is a FV0 hit
+    }
+    // anything else
+  }
+}
+```
 
 ## Simulate according to the MC kinematics
 
