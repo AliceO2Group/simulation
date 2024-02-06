@@ -8,69 +8,49 @@ title: Anchored MC
 In "anchored" MC simulations, conditions are set to match those during a real data taking run at a given time such as LHC filling scheme, included ALICE detectors, interaction rate etc.
 Anchored MC productions are crucial for physics analyses to have realistic simulated samples.
 
-The anchoring procedure is slightly more involved than unanchored MC runs. What we need to achieve is constructing a fitting [workflow similar to the unanchored case](README.md/#workflow-creation).
+An anchored simulation is bound to a run which is identified by a run number. A run in turn spans from the start-of-run (SOR) to the end-of-run (EOR). This is sketched in the figure.
+![anchored split cycle](../images/anchored_split_cycle.png)
 
-Here is the step-by-step procedure:
+One anchored simulation run corresponds to one specific `CYCLE` of one `SPLITID` and contains a given number of timeframes as indicated by the big blue box on the bottom right.
+A full `RUN` is covered when all `CYCLES` have been produced for all `SPLITIDS`.
 
-**Determine reconstruction options and enabled detectors**
+The following is an example to run one anchored simulation, in this case `apass2` anchored to `RUN` 544121. Note that if one wants to consistently fill a run, the number of timeframes must be the same for all `CYCLES` and `SPLITIDS`.
+
 ```bash
+# example anchoring
+# taken from https://its.cern.ch/jira/browse/O2-4586
+export ALIEN_JDL_LPMANCHORPASSNAME=apass2
+export ALIEN_JDL_MCANCHOR=apass2
+export ALIEN_JDL_COLLISIONSYSTEM=Pb-Pb
+export ALIEN_JDL_CPULIMIT=8
+export ALIEN_JDL_LPMPASSNAME=apass2
+export ALIEN_JDL_LPMRUNNUMBER=544121
+export ALIEN_JDL_LPMPRODUCTIONTYPE=MC
+export ALIEN_JDL_LPMINTERACTIONTYPE=PbPb
+export ALIEN_JDL_LPMPRODUCTIONTAG=LHC24a1
+export ALIEN_JDL_LPMANCHORRUN=544121
+export ALIEN_JDL_LPMANCHORPRODUCTION=LHC22o
+export ALIEN_JDL_LPMANCHORYEAR=2023
 
-# create your working directory and change into it
-mdkir ${WORKDIR}
-cd ${WORKDIR}
+export NTIMEFRAMES=2
+export NSIGEVENTS=2
+export SPLITID=100
+export PRODSPLIT=153
+export CYCLE=0
 
-# set run number etc.
-export RUNNUMBER=<run-number>
-export PASS=<pass>
-export PERIOD=<period>
-export BEAMTYPE=<beamtype>
-export RUNNUMBER=<run-number>
+# on the GRID, this is set, for our use case, we can mimic any job ID
+export ALIEN_PROC_ID=2963436952
 
-# copy what needs to be run because we will tweak it in a sec
-cp $O2DPG_ROOT/DATA/production/configurations/asyncReco/async_pass.sh .
-cp $O2DPG_ROOT/DATA/production/configurations/asyncReco/setenv_extra.sh .
-
-# set what is necessary in MC
-sed -i 's/GPU_global.dEdxUseFullGainMap=1;GPU_global.dEdxDisableResidualGainMap=1/GPU_global.dEdxSplineTopologyCorrFile=splines_for_dedx_V1_MC_iter0_PP.root;GPU_global.dEdxDisableTopologyPol=1;GPU_global.dEdxDisableGainMap=1;GPU_global.dEdxDisableResidualGainMap=1;GPU_global.dEdxDisableResidualGain=1/' setenv_extra.sh
-# disable running the reco, we will get everything from our MC run
-sed -i '/WORKFLOWMODE=run/d' async_pass.sh
-
-# prepare
-export IGNORE_EXISTING_SHMFILES=1
-touch list.list
-
-# this will provide us with the log file as well as workflowconfig.log...
-./async_pass.sh ${CTF_TEST_FILE:-""} 2&> async_pass_log.log
-
-# ...which will now be parsed to yield config-config.json
-${O2DPG_ROOT}/UTILS/parse-async-WorkflowConfig.py
-
-# the following variables of course should be set
-baseargs="-col ${COLSYSTEM} -eCM 5360 -tf ${NTIMEFRAMES} --split-id ${SPLITID} --prod-split ${PRODSPLIT} --cycle ${CYCLE} --run-number ${RUNNUMBER}"
-
-remainingargs="-gen pythia8 -proc heavy_ion -seed ${SEED} -ns ${NSIGEVENTS} --include-local-qc --pregenCollContext"
-remainingargs="${remainingargs} -e ${SIMENGINE} -j ${NWORKERS}"
-remainingargs="${remainingargs} -productionTag ${ALIEN_JDL_LPMPRODUCTIONTAG:-local_anchorTest_tmp}"
-# and here comes the config-config.json that we constructed above and contains additional options for DPLs as well as detectors and detector sources etc.
-remainingargs="${remainingargs} --anchor-config config-json.json"
-
-# no we create the final workflow that will be digested by the runner
-${O2DPG_ROOT}/MC/bin/o2dpg_sim_workflow_anchored.py ${baseargs} -- ${remainingargs} &> timestampsampling_${RUNNUMBER}.log
-
-# We grep the timestamp in order to be able to pre-fetch some CCDB objects
-TIMESTAMP=`grep "Determined timestamp to be" timestampsampling_${RUNNUMBER}.log | awk '//{print $6}'`
-# this is what we want to fetch
-CCDBOBJECTS="/CTP/Calib/OrbitReset /GLO/Config/GRPMagField/ /GLO/Config/GRPLHCIF /ITS/Calib/DeadMap /ITS/Calib/NoiseMap /ITS/Calib/ClusterDictionary /TPC/Calib/PadGainFull /TPC/Calib/TopologyGain /TPC/Calib/TimeGain /TPC/Calib/PadGainResidual /TPC/Config/FEEPad /TOF/Calib/Diagnostic /TOF/Calib/LHCphase /TOF/Calib/FEELIGHT /TOF/Calib/ChannelCalib /MFT/Calib/DeadMap /MFT/Calib/NoiseMap /MFT/Calib/ClusterDictionary /FT0/Calibration/ChannelTimeOffset /FV0/Calibration/ChannelTimeOffset /GLO/GRP/BunchFilling"
-
-# where we cache all CCDB objects
-export ALICEO2_CCDB_LOCALCACHE=$PWD/.ccdb
-
-${O2_ROOT}/bin/o2-ccdb-downloadccdbfile --host http://alice-ccdb.cern.ch/ -p ${CCDBOBJECTS} -d ${ALICEO2_CCDB_LOCALCACHE} --timestamp ${TIMESTAMP}
-
-echo "run with echo in pipe" | ${O2_ROOT}/bin/o2-create-aligned-geometry-workflow --configKeyValues "HBFUtils.startTime=${TIMESTAMP}" --condition-remap=file://${ALICEO2_CCDB_LOCALCACHE}=ITS/Calib/Align,MFT/Calib/Align -b
-mkdir -p $ALICEO2_CCDB_LOCALCACHE/GLO/Config/GeometryAligned
-ln -s -f $PWD/o2sim_geometry-aligned.root $ALICEO2_CCDB_LOCALCACHE/GLO/Config/GeometryAligned/snapshot.root
-
+# run the central anchor steering script; this includes
+# * derive timestamp
+# * derive interaction rate
+# * extract and prepare configurations (which detectors are contained in the run etc.)
+# * run the simulation (and QC)
+${O2DPG_ROOT}/MC/run/ANCHOR/anchorMC.sh
 ```
 
-Now finally you can run the runner as explained [here](README.md/#workflow-running).
+## Behind the scenes
+
+The procedure steered behind the scenes is quite involved. The following figure shall provide some overview.
+
+![anchored run](../images/anchored_run.png)
