@@ -5,6 +5,11 @@ title: Anchored MC
 
 # Anchored MC
 
+!!! warning ""
+
+  Note that anchoring MCs are currently not supported on Mac!
+
+
 In "anchored" MC simulations, conditions are set to match those during a real data taking run at a given time such as LHC filling scheme, included ALICE detectors, interaction rate etc.
 Anchored MC productions are crucial for physics analyses to have realistic simulated samples.
 
