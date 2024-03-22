@@ -5,10 +5,18 @@ title: Anchored MC
 
 # Anchored MC
 
-!!! warning ""
+**Note** that anchoring MCs are currently not supported on Mac!
 
-  Note that anchoring MCs are currently not supported on Mac!
+## Prerequisites
 
+Please consider installing/loading one of the following `alidist` packages
+
+* `O2sim`,
+* `O2PDPSuite`.
+
+These are meta packages which pull everything that is needed.
+
+## Run an anchored simulation
 
 In "anchored" MC simulations, conditions are set to match those during a real data taking run at a given time such as LHC filling scheme, included ALICE detectors, interaction rate etc.
 Anchored MC productions are crucial for physics analyses to have realistic simulated samples.
