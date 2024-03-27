@@ -18,24 +18,28 @@ A few ways exist to make use of the GRID computing power for simulation:
 Official productions for ALICE physics working groups or larger productions for research and development
 (detector groups, etc.) should be handled via the Data Processing Group (DPG).
 
-A ticket with type "Production Request" should be created in [JIRA](https://alice.its.cern.ch/jira/projects/O2), explaining the purpose, the setup, the software version to be used and so on. The production will then be orchestrated by the DPG production manager. 
+A ticket with type "Production Request" should be created in [JIRA](https://alice.its.cern.ch/jira/projects/O2), explaining the purpose, the setup, the software version to be used and so on. The production will then be orchestrated by the DPG production manager.
 Note that a ticket is also needed for test requests, no mail requests will be accepted.
 
-Productions may need to be approved by the Physics Board depending on resource usage. 
+Productions may need to be approved by the Physics Board depending on resource usage.
 The CPU limit for tests or productions without Physics board approval is 1d@10kCPUs.
 
 ## Personal (development or test) productions
 
 Each member of the ALICE collaboration has a personal compute quota and one can submit jobs spanning
-O(100) CPUs for development and testing cycles which is a consirable resource pool.
+O(100) CPUs for development and testing cycles which is a considerable resource pool.
 
 Here, one needs to create a JDL file describing the job, upload executables to the GRID and use a a tool like `alien.py` to interact
 with the GRID services. Documentation can be found [here](https://jalien.docs.cern.ch/), with the JDL job reference available [here](https://alien.web.cern.ch/content/documentation/howto/user/jobs).
-
 
 The process of setting up JDLs and copying necessary files can be cumbersome.
 For this reason, there exists also a [tool](https://github.com/AliceO2Group/O2DPG/blob/master/GRID/utils/grid_submit.sh), called `grid_submit.sh`
 which allows to submit a locally existing script to run on the GRID without much boilerplate. The tool is work-in-progress and needs more generalizations but may be a good starting point.
 
+### Configuring `grid_submit.sh`
+
+* To alter the TTL setting of your job, pass `--ttl <ttl>`.
+* If your local user name from where you submit do not coincide, use `--asuser <alien-user>` to set your GRID user name.
+* Production MC simulations are run in `SPLITs`. More explanation on that is provided [here](../o2dpgworkflow/anchored.md). Use `--prodsplit <prodsplit>` to alter the number of splits; default is `1`.
 
 {% include list.liquid all=true %}
