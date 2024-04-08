@@ -19,6 +19,11 @@ The convention is, that only those objects that have the exact same path are com
 
 At the end of this README are some examples for QC RelVal.
 
+## Prerequisites
+
+For basic `ROOT` objects, no special environments need to be loaded. However, in order to run on QC output, `QualityControl` needs to be loaded.
+Probably the easiest is to simply load `O2sim` or `O2PDPSuite` which both contain all necessary dependencies including `QualityControl`.
+
 ## Quick start
 
 To jump right in, please check out [this](#run-for-qc)
