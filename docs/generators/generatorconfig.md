@@ -122,3 +122,56 @@ usage: run_tests.sh [--fail-immediately] [--keep-artifacts]
   If also not set, this will be set to HEAD. However, if there are unstaged
   changes, it will left blank.
 ```
+
+## Generator IDs
+
+It is possible to assign IDs to generators. These IDs will be set per event to indicate which generator was involved in generating that event.
+
+There are two types of generator IDs, one global ID and one so-called "sub-generator" ID.
+
+### Global ID
+
+A global ID is given to one generator. It can be set via a config key-value pair, e.g.
+```bash
+o2-sim <your-args> --configKeyValues "PrimaryGenerator.id=42"
+```
+
+To access that ID during analysis, the `mcCollisions` table has the getter `getGeneratorID()`.
+
+### Sub-generator IDs
+
+In this case, we assume a scenario such as a cocktail generator. For instance, take this dummy implementation of the `o2::eventgen::Generator` class as an example:
+
+```c++
+class MyGenerator : public o2::eventgen::Generator
+
+{
+    MyGenerator() : o2::eventgen::Generator("myName", "myName")
+    {
+        // something that might need to be done here
+        // ...
+        // Define the sub generators
+        addSubGenerator(0, "specificSubGen0");
+        addSubGenerator(1, "specificSubGen1");
+        addSubGenerator(2, "specificSubGen2");
+        // ...
+        addSubGenerator(N, "specificSubGenN");
+        // potentially some more construction work
+    }
+
+    bool importImpl(int sampledSubGenID) {
+        // do the actual import work based onn the sampled ID
+    }
+
+    bool importParticles()
+    {
+        // e.g. sample some condition and from that condition, derive the ID that should be set
+        int sampledSubGenID = sampleSubGenID();
+        notifySubGenerator(sampledSubGenID);
+        return importImpl(sampledSubGenID);
+    }
+
+};
+```
+
+To access that ID during analysis, the `mcCollisions` table has the getter `getSubGeneratorID()`.
