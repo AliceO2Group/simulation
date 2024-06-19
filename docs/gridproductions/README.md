@@ -42,4 +42,15 @@ which allows to submit a locally existing script to run on the GRID without much
 * If your local user name from where you submit do not coincide, use `--asuser <alien-user>` to set your GRID user name.
 * Production MC simulations are run in `SPLITs`. More explanation on that is provided [here](../o2dpgworkflow/anchored.md). Use `--prodsplit <prodsplit>` to alter the number of splits; default is `1`.
 
+### Important note
+
+It is highly recommended, if possible, to test custom developments or new implementations first locally or on `lxplus` before moving to the GRID.
+Among other things the advantages could be:
+
+* no waste of GRID quota,
+* all artifacts like ROOT or log files are available (some might be missing if you forget or have wrong/incomplete output specifications in the JDL for the GRID run),
+* easy access and inspections, no downloads/uploads,
+* depending on the complexity, maybe as fast or even faster than GRID testing (no waiting time, no additional saving time),
+* easier to reconfigure, run again, change code, run again etc.
+
 {% include list.liquid all=true %}
