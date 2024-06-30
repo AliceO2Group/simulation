@@ -5,7 +5,7 @@ title: Implement your own generator
 
 # Implement your own generator
 
-Users can implement their own custom primary generator. To integrate it into an O2 simulation, it must at least derive from [`FairGenerator`](https://github.com/FairRootGroup/FairRoot/blob/master/base/sim/FairGenerator.h). However, the easiest to use O2-specific class and derive from [`Generator`](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/include/Generators/Generator.h) or even
+Users can implement their own custom primary generator. To integrate it into an O2 simulation, it must at least derive from [`FairGenerator`](https://github.com/FairRootGroup/FairRoot/blob/master/fairroot/base/sim/FairGenerator.h). However, the easiest to use O2-specific class and derive from [`Generator`](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/include/Generators/Generator.h) or even
 from [`GeneratorTGenerator`](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/include/Generators/GeneratorTGenerator.h) and the usage of the latter two is recommended. It might be instructive to browse the [O2DPG repository](https://github.com/AliceO2Group/O2DPG) for some inspiration, checkout for instance
 [this one](https://github.com/AliceO2Group/O2DPG/blob/master/MC/config/PWGDQ/external/generator/GeneratorCocktailPromptCharmoniaToMuonEvtGen_pp13TeV.C).
 

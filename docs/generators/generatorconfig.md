@@ -10,7 +10,7 @@ There are various ways to pass specific generator configurations to the simulati
 o2-sim --configFile <path/to/config.ini>
 ```
 
-Similarly, this works for the [`o2dpg_sim_workflow.py`](../o2dpgworkflow/README.md/#o2dpg-workflows) with
+Similarly, this works for the [`o2dpg_sim_workflow.py`](../o2dpgworkflow/README.md/#workflow-creation) with
 ```bash
 o2dpg_sim_workflow.py -gen pythia8 -ini <path/to/config.ini>
 ```
