@@ -9,11 +9,37 @@ There are several generators which can be directly specified with `o2-sim -g <ge
 
 ## Pythia8
 
-For Pythia8 there are 5 different options which can be directly called from the command line.
+Pythia8 is the default generator for ALICE Run3, and the only one with a native interface in the O2 codebase, via the [GeneratorPythia8](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/include/Generators/GeneratorPythia8.h) class.
+
+For Pythia8 there are 5 different options/values which can be directly used as `<generator>` in `o2-sim -g <generator>`:
 
 ### pythia8
 
-**NOTE**: In this case users have to pass a valid configuration file to Pythia8 via `--configKeyValues "GeneratorPythia8.config=<path/to/config>"` in addition.
+This selects Pythia8 as the generator for simulation but it is necessary to pass a Pythia8 configuration file, such as
+```
+### beams
+Beams:idA 2212			# proton
+Beams:idB 2212 			# proton
+Beams:eCM 14000. 		# GeV
+
+### processes
+SoftQCD:inelastic on		# all inelastic processes
+
+### decays
+ParticleDecays:limitTau0 on	
+ParticleDecays:tau0Max 10.
+```
+which configures the Pythia8 instance.
+
+Passing of this configuration file happens via the configurable parameter `GeneratorPythia8`. In the simplest case, one may just use `--configKeyValues "GeneratorPythia8.config=<path/to/config>"`.
+
+Next to allowing to specify the configuration file, the configurable parameter "GeneratorPythia8" (source definition [here](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/include/Generators/GeneratorPythia8Param.h) has more options that allow to configure the Pythia8 instance in O2. The important keys are defined in the corresponding class
+
+* `config` : specification of the Pythia8 configuration file
+* `includePartonEvent = [true|false]` : whether we keep the partonic part of the event or filter it out (default false) 
+* `hooksFileName` : string to specify a ROOT macro file containing a trigger function (optional)
+* `hooksFuncName` : string to specify the functionname corresponding to the trigger function (optional)
+
 
 ### pythi8pp
 
@@ -75,7 +101,10 @@ o2-sim -g hepmc --configKeyValues "HepMC.fileName=<path/to/HepMC/file>"
 
 ## External generators
 
-External generators are usually defined in macros that are evaluated at runtime. Please also refer to the [custom generators page](generatorscustom.md) for a detailed explanation of their implementation.
+External generators are usually defined in macros that are evaluated at runtime. External generators allow the users 
+to provide completely custom generator setups and interface other generators than Pythia8 into the simulation. Examples of external generators may be specializations of Pythia8 (via class inheritance), cocktail setups, etc.
+
+Please also refer to the [custom generators page](generatorscustom.md) for a detailed explanation of their implementation.
 
 Such a custom generator is invoked with
 ```bash
