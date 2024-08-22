@@ -33,7 +33,7 @@ which configures the Pythia8 instance.
 
 Passing of this configuration file happens via the configurable parameter `GeneratorPythia8`. In the simplest case, one may just use `--configKeyValues "GeneratorPythia8.config=<path/to/config>"`.
 
-Next to allowing to specify the configuration file, the configurable parameter "GeneratorPythia8" (source definition [here](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/include/Generators/GeneratorPythia8Param.h) has more options that allow to configure the Pythia8 instance in O2. The important keys are defined in the corresponding class
+Next to allowing to specify the configuration file, the configurable parameter "GeneratorPythia8" (source definition [here](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/include/Generators/GeneratorPythia8Param.h)) has more options that allow to configure the Pythia8 instance in O2. The important keys are defined in the corresponding class
 
 * `config` : specification of the Pythia8 configuration file
 * `includePartonEvent = [true|false]` : whether we keep the partonic part of the event or filter it out (default false) 
@@ -41,16 +41,17 @@ Next to allowing to specify the configuration file, the configurable parameter "
 * `hooksFuncName` : string to specify the functionname corresponding to the trigger function (optional)
 
 
-### pythi8pp
+### pythia8pp
 
-This uses default Pythia8 with [this configuration](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/share/egconfig/pythia8_inel.cfg).
+A special, pre-configured case of `<pythia8>` for pp collisions. This uses default Pythia8 with [this configuration](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/share/egconfig/pythia8_inel.cfg).
 
 ### pythia8hf
 
-This uses default Pythia8 with the configuration [this configuration](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/share/egconfig/pythia8_hf.cfg).
+A special, pre-configured case of `<pythia8>` for HF. This uses default Pythia8 with the configuration [this configuration](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/share/egconfig/pythia8_hf.cfg).
+
 ### pythia8hi
 
-This uses default Pythia8 with the configuration [this configuration](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/share/egconfig/pythia8_hi.cfg).
+A special, pre-configured case of `<pythia8>` for PbPb collisions (Agantyr model). This uses default Pythia8 with the configuration [this configuration](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/share/egconfig/pythia8_hi.cfg).
 
 ### pythia8powheg
 
