@@ -16,7 +16,7 @@ For Pythia8 there are 5 different options/values which can be directly used as `
 ### pythia8
 
 This selects Pythia8 as the generator for simulation but it is necessary to pass a Pythia8 configuration file, such as
-```
+```text
 ### beams
 Beams:idA 2212			# proton
 Beams:idB 2212 			# proton
@@ -104,16 +104,17 @@ must be added in the configuration keys, otherwise the simulation task could fai
 
 ## Generating using FIFOs 
 
-It is also possible to use FIFOs which allow not to store data from generators but to feed them directly to o2-sim. This can be done *manually*, by creating a FIFO and then feeding it as HepMC file to both your generator and the o2-sim script, or automatically via `GeneratorHepMC` using the `cmd` parameter. The use of the latter, instead of the former, is **highly encouraged** and three examples are provided in [O2](https://github.com/AliceO2Group/AliceO2/tree/dev/run/SimExamples) inside the `HepMC*` folders.
-
+FIFOs allow not to store data from generators and to feed them directly to o2-sim and they can be used either *manually*, by creating one and then feeding it as HepMC file to both your generator and the o2-sim script, or automatically via `GeneratorHepMC` using the `cmd` parameter.  
+The use of the latter, instead of the former, is **highly encouraged** and three examples are provided in [O2](https://github.com/AliceO2Group/AliceO2/tree/dev/run/SimExamples) inside the `HepMC*` folders.  
 This function spawns a simulation task using an external generator provided that this:
 - returns HepMC data in the stdout &rarr; this is the only real hard requirement
 - accepts a `-s` flag to set the generation seed
 - has control of the number of events with a `-n` flag or different mechanism
 - has the possibility of setting the impact parameter (`-b` flag).
 
-These flags are automatically fed to the executable (or script) provided with `GeneratorFileOrCmd.cmd=<scriptname>`.
-In most generators these conditions are either available out of the box or they can be satisfied by creating a simple steering script. The only real stopper to run with this method is not having HepMC in the stdout, however the user must be careful what the other flags do in the provided generator because they could be interpreted in a different way and return unexpected results. In order not to provide an impact parameter limit `GeneratorFileOrCmd.bMaxSwitch=none` can be set in the configuration keys, which is useful because your generator might not be able to configure this option by default. An example command to run with automatically generated FIFOs is:
+These flags are automatically fed to the executable (or script) provided with `GeneratorFileOrCmd.cmd=<scriptname>`.  
+In most generators these conditions are either available out of the box or they can be satisfied by creating a simple steering script. The only real stopper to run with this method is not having HepMC in the stdout, however the user must be careful what the other flags do in the provided generator because they could be interpreted in a different way and return unexpected results.  
+In order not to provide an impact parameter limit `GeneratorFileOrCmd.bMaxSwitch=none` can be set in the configuration keys, which is useful because your generator might not be able to configure this option by default. An example command to run with automatically generated FIFOs is:
 ```bash
 o2-sim -n 100 -g hepmc --seed 12345 --configKeyValues "GeneratorFileOrCmd.cmd=epos.sh;GeneratorFileOrCmd.bMaxSwitch=none;"
 ```
