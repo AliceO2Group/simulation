@@ -18,11 +18,12 @@ o2dpg_sim_workflow.py -gen pythia8 -ini <path/to/config.ini>
 This way is the preferred way and we are indeed now in a transition phase after which this will be the only accepted way of generator configuration for official productions on the GRID. In addition, the configuration files must be found in the [O2DPG Git repository](https://github.com/AliceO2Group/O2DPG).
 For this reason, there is now a new CI in place which runs tests on all these files (they will also simply be called `ini` files in the following).
 
-The configuration files are placed at `O2DPG/MC/config/<PWG>/ini/<config>.ini`. These can contain different sections for configuring generators in general but also additional triggers on the produced particles can be added,
-(see for instance [here](https://github.com/AliceO2Group/O2DPG/blob/546ec5d03a57d189b4ea3c92c5a8e1d7af812d41/MC/config/PWGDQ/ini/GeneratorHF_ccbarToMuonsSemileptonic_fwdy.ini)).
+The configuration files are placed by default at `O2DPG/MC/config/<PWG>/ini/<config>.ini`. These can contain different sections for configuring generators in general but also additional triggers on the produced particles can be added,
+(see for instance [here](https://github.com/AliceO2Group/O2DPG/blob/master/MC/config/PWGDQ/ini/GeneratorHF_ccbarToMuonsSemileptonic_fwdy.ini)).
 
 In the given example, there is `Pythia8` and `External` defined in the file. That means, the respective configurations will be picked up eventually, depending on the `-g <generator>` argument of `o2-sim`. Note, that multiple configuration might take effect. For instance, if your `external` generator derives from
-[`GeneratorPythia8`](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/include/Generators/GeneratorPythia8.h), then the `External` as well as the `Pythia8` section of your configuration will be used.
+[`GeneratorPythia8`](https://github.com/AliceO2Group/AliceO2/blob/dev/Generators/include/Generators/GeneratorPythia8.h), then the `External` as well as the `Pythia8` section of your configuration will be used. The `ini` files use the `O2DPG_MC_CONFIG_ROOT` environment variable, which is set by default to the `O2DPG_ROOT` folder of your current loaded build. 
+However this variable can be easily changed with `export O2DPG_MC_CONFIG_ROOT=<new/path/here>` after loading the environment, so that the user can run for example older committed configurations with a newer O2DPG version and viceversa.
 
 ## Generator status codes, flagging particles to be tracked/transported
 
