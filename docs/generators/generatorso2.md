@@ -92,6 +92,7 @@ This reads primaries to be transported from an MC kinematics file. Such a file i
 ```bash
 o2-sim -g extkinO2 --extKinFile <path/to/o2sim_Kine.root>
 ```
+Alien paths are compatible as well, provided they follow the syntax `alien:///path/to/file.root`. They will be opened on-the-fly, without the need to download them locally, however you might experience longer simulation times due to the remote source.
 
 ### hepmc
 

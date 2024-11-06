@@ -47,6 +47,14 @@ Simulations run from a workflow are done in units of timeframes and the number o
 
 By default, the workflow description is written to `workflow.json`.
 
+### Event pools
+
+The flag `--make-evtpool` can be used to generate a workflow for event pools creation.
+```bash
+${O2DPG_ROOT}/MC/bin/o2dpg_sim_workflow.py -gen <generator> -eCM <emc energy  [GeV]> -tf <nTFs> --ns <nEvents> --make-evtpool
+```
+This will skip all the steps after signal generation (no transport), forcing the beam-spot vertex to kNoVertex and including a final step called `poolmerge` which will be used for merging all the Kine.root files generated for the `nTFs` timeframes in a `evtpool.root` file.
+
 ### Embedding
 
 The workflow can also be created for a simulation where signal type events are embedded into a certain type of background events. To enable this feature, pass the flag `--embedding`. For the background events there are the following arguments
@@ -72,6 +80,23 @@ There are a few very useful command-line options for this one though
 The runner tries to execute as many tasks in parallel as possible. So while in the beginning the transport might take some time, quickly your terminal will fill up with the tasks running on top of the simulation results.
 
 Often what you might want to do is running the full chain to obtain final `AO2D.root`. To achieve this and to not run tasks that are not needed, pass `-tt aod`.
+
+### Event pools usage
+
+Some guidelines must be followed when using event pools, in particular when creating an event cache the workflow runner must be set to reach the poolmerge step, such as:
+```bash
+${O2DPG_ROOT}/MC/bin/o2dpg_workflow_runner.py -f workflow.json -tt pool
+```
+Instead, when feeding the pool to an O2DPG workflow (using `extkinO2` as generator) the user must be aware that by default the events will be randomised (with the same seed used in each timeframe), while phi randomisation is not active.
+An example on how to run a workflow including the phi angle random rotation would look like this:
+```bash
+${O2DPG_ROOT}/MC/bin/o2dpg_sim_workflow.py -eCM <emc energy  [GeV]> -gen extkinO2 -tf <nTFs> --ns <nEvents>
+                                           -confKey "GeneratorFromO2Kine.randomphi=true;GeneratorFromO2Kine.fileName=/path/to/file/filename.root"
+                                           -gen extkinO2 -interactionRate 500000
+# Followed by
+${O2DPG_ROOT}/MC/bin/o2dpg_workflow_runner.py -f workflow.json -tt aod
+```
+If the randomisation of events needs to be removed, the user can do it by editing manually the JSON file. A full example on event pools is provided in the [${O2DPG_ROOT}/MC/run/examples/event_pool.sh](https://github.com/AliceO2Group/O2DPG/blob/master/MC/run/examples/event_pool.sh) script (call the `--help` flag or check the source for usage information).
 
 ### About finished tasks
 
