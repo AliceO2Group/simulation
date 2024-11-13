@@ -117,9 +117,9 @@ These flags are automatically fed to the executable (or script) provided with `G
 In most generators these conditions are either available out of the box or they can be satisfied by creating a simple steering script. The only real stopper to run with this method is not having HepMC in the stdout, however the user must be careful what the other flags do in the provided generator because they could be interpreted in a different way and return unexpected results.  
 In order not to provide an impact parameter limit `GeneratorFileOrCmd.bMaxSwitch=none` can be set in the configuration keys, which is useful because your generator might not be able to configure this option by default. An example command to run with automatically generated FIFOs is:
 ```bash
-o2-sim -n 100 -g hepmc --seed 12345 --configKeyValues "GeneratorFileOrCmd.cmd=epos.sh;GeneratorFileOrCmd.bMaxSwitch=none;"
+o2-sim -n 100 -g hepmc --seed 12345 --configKeyValues "GeneratorFileOrCmd.cmd=epos.sh -i <optnsFileName>;GeneratorFileOrCmd.bMaxSwitch=none;"
 ```
-where epos.sh is the steering script of EPOS4 which can be found [here](https://github.com/AliceO2Group/AliceO2/tree/dev/run/SimExamples/HepMC_EPOS4). More information are at the user disposal in the README files of each HepMC example folder.
+where epos.sh is the steering script of EPOS4 which can be found [here](https://github.com/AliceO2Group/AliceO2/tree/dev/run/SimExamples/HepMC_EPOS4). The `-i` flag in the `cmd` parameter is mandatory in order to fetch the .optns file needed for the configuration of the generator. More information are at the user disposal in the README files of each HepMC example folder.
 
 ## External generators
 
