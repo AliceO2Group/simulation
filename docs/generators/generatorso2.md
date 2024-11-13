@@ -119,7 +119,7 @@ In order not to provide an impact parameter limit `GeneratorFileOrCmd.bMaxSwitch
 ```bash
 o2-sim -n 100 -g hepmc --seed 12345 --configKeyValues "GeneratorFileOrCmd.cmd=epos.sh -i <optnsFileName>;GeneratorFileOrCmd.bMaxSwitch=none;"
 ```
-where epos.sh is the steering script of EPOS4 which can be found [here](https://github.com/AliceO2Group/AliceO2/tree/dev/run/SimExamples/HepMC_EPOS4). The `-i` flag in the `cmd` parameter is mandatory in order to fetch the .optns file needed for the configuration of the generator. More information are at the user disposal in the README files of each HepMC example folder.
+where epos.sh is the steering script of EPOS4 which can be found [here](https://github.com/AliceO2Group/AliceO2/tree/dev/run/SimExamples/HepMC_EPOS4). The `-i` flag in the `cmd` parameter is mandatory in order to fetch the .optns file needed for the configuration of the generator: only the filename must be provided and the file (with `.optns` extension) must be available in the current working directory, otherwise the generation will not start. This is because paths are not supported in the original epos executable for the configuration file, however the epos.sh steering script can be preceded by a path (environment variables are allowed). More information are at the user disposal in the README files of each HepMC example folder.
 
 ## External generators
 
