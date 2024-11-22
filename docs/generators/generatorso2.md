@@ -123,7 +123,7 @@ where epos.sh is the steering script of EPOS4 which can be found [here](https://
 
 ## External generators
 
-External generators are usually defined in macros that are evaluated at runtime. External generators allow the users 
+External generators are usually defined in macros that are evaluated at runtime. External generators allow the users
 to provide completely custom generator setups and interface other generators than Pythia8 into the simulation. Examples of external generators may be specializations of Pythia8 (via class inheritance), cocktail setups, etc.
 
 Please also refer to the [custom generators page](generatorscustom.md) for a detailed explanation of their implementation.
@@ -132,3 +132,28 @@ Such a custom generator is invoked with
 ```bash
 o2-sim -g external --configKeyValues "GeneratorExternal.fileName=<path/to/macro.C>;GeneratorExternal.funcName=<function-signature-to-call(...)>"
 ```
+
+## Hybrid generator
+
+Most of the generators described until this point of the tutorial can be run simultaneously to create a simulation that will contain multiple sources of events. One of the easiest example is to run Pythia8 while introducing from time to time some events stored in a cache via the extkinO2 generator. Specifically the full list of available generators is:
+- pythia8
+- pythia8pp
+- pythia8hf
+- pythia8hi
+- pythia8powheg
+- boxgen
+- hepmc
+- extkinO2
+- external
+
+The hybrid generator is configured via two parameters:
+* configFile &rarr; path to filename of the JSON file used to configure the generators to be included in the hybrid run
+* randomize &rarr; if true the execution order of the generators will be randomised (false by default)
+
+An example JSON configuration file can be found in the hybrid [example folder](https://github.com/AliceO2Group/AliceO2/tree/dev/run/SimExamples/Hybrid) where the script runo2sim.sh can be used as a base to run the generator for the first time, which contains a similar instruction to this one
+```
+${O2_ROOT}/bin/o2-sim --noGeant -j 4 --run 300000 --configKeyValues "GeneratorHybrid.configFile=/path/to/file.json;GeneratorHybrid.randomize=true" -g hybrid -o genevents --seed 836302859 -n 10
+```
+A template of the configuration file can be generated via the O2DPG script [${O2DPG_ROOT}/MC/bin/o2_hybrid_gen.py](https://github.com/AliceO2Group/O2DPG/blob/master/MC/bin/o2_hybrid_gen.py) passing as argument to its **gen** flag a list of all the generators you want to use in your simulation. The newly created file will contain all the parameters needed to be configured (most of them with default values set) and a field called fractions which is an array with all elements set to unity. Each element, in order, corresponds to the number of events to be generated with each generator before passing to the next when running with no randomisation. If no fractions field is present all the elements are assumed to be unity, however if this is set it's important that the size of the array corresponds to the number of generators that will be initialised, otherwise the simulation will not start.
+
+For more usage information on both runo2sim.sh and o2_hybrid_gen.py you can always use the \-\-help flag or check the short description at the beginning of their source code.
