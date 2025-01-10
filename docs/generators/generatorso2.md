@@ -92,7 +92,30 @@ This reads primaries to be transported from an MC kinematics file. Such a file i
 ```bash
 o2-sim -g extkinO2 --extKinFile <path/to/o2sim_Kine.root>
 ```
-Alien paths are compatible as well, provided they follow the syntax `alien:///path/to/file.root`. They will be opened on-the-fly, without the need to download them locally, however you might experience longer simulation times due to the remote source.
+Alien paths are compatible as well, provided they follow the syntax `alien:///path/to/file.root`. They will be opened on-the-fly, without the need to download them locally, however you might experience longer simulation times due to the remote source. Alternatively to using the `--extKinFile` flag, the `GeneratorFromO2Kine.fileName` parameter can be used
+```bash
+o2-sim -g extkinO2 --configKeyValues "GeneratorFromO2Kine.fileName=<path/to/o2sim_Kine.root>"
+```
+whose value has the priority when both methods are used together.
+
+### evtpool
+
+This generator is a wrapper of extkinO2 but it is optimised for event pools handling.
+In particular it offers functionality to
+
+* self-pick a file from a pool
+* discover available files in a pool on AliEn or local disk
+* makes it easier to generate generic JSON configs &rarr; users don't need to provide a full file path to use (which would be impractical for productions).
+An example generation with evtpool is the following:
+```bash
+o2-sim -g evtpool --configKeyValues "GeneratorEventPool.eventPoolPath=<path/to/evtpools>"
+```
+where `evtpools`, on AliEn or local disk, can be:
+* a folder &rarr; the path is searched for the `evtpool.root` files
+* an evtpool.root file
+
+In addition a `.txt` file can be provided on the local disk containing a list of files to be used as event pools.
+Event pools files need to be specifically named `evtpool.root` otherwise the simulation will fail (hardcoded setting).
 
 ### hepmc
 
@@ -106,20 +129,22 @@ must be added in the configuration keys, otherwise the simulation task could fai
 ## Generating using FIFOs 
 
 FIFOs allow not to store data from generators and to feed them directly to o2-sim and they can be used either *manually*, by creating one and then feeding it as HepMC file to both your generator and the o2-sim script, or automatically via `GeneratorHepMC` using the `cmd` parameter.  
-The use of the latter, instead of the former, is **highly encouraged** and three examples are provided in [O2](https://github.com/AliceO2Group/AliceO2/tree/dev/run/SimExamples) inside the `HepMC*` folders.  
+The use of the latter, instead of the former, is **highly encouraged** and a few examples are provided in [O2](https://github.com/AliceO2Group/AliceO2/tree/dev/run/SimExamples) inside the `HepMC*` folders.  
 This function spawns a simulation task using an external generator provided that this:
-- returns HepMC data in the stdout &rarr; this is the only real hard requirement
+- returns HepMC data either to a file or stdout &rarr; this is the only real hard requirement
 - accepts a `-s` flag to set the generation seed
 - has control of the number of events with a `-n` flag or different mechanism
 - has the possibility of setting the impact parameter (`-b` flag).
 
 These flags are automatically fed to the executable (or script) provided with `GeneratorFileOrCmd.cmd=<scriptname>`.  
-In most generators these conditions are either available out of the box or they can be satisfied by creating a simple steering script. The only real stopper to run with this method is not having HepMC in the stdout, however the user must be careful what the other flags do in the provided generator because they could be interpreted in a different way and return unexpected results.  
-In order not to provide an impact parameter limit `GeneratorFileOrCmd.bMaxSwitch=none` can be set in the configuration keys, which is useful because your generator might not be able to configure this option by default. An example command to run with automatically generated FIFOs is:
+In most generators these conditions are either available out of the box or they can be satisfied by creating a simple steering script. The only real stopper to run with this method is not having HepMC in the stdout or redirected to a file, however the user must be careful what the other flags do in the provided generator because they could be interpreted in a different way and return unexpected results.  
+In order not to provide an impact parameter limit `GeneratorFileOrCmd.bMaxSwitch=none` can be set in the configuration keys, which is useful because your generator might not be able to configure this option by default. An example command to run with automatically generated FIFOs with a generator printing data to stdout is:
 ```bash
 o2-sim -n 100 -g hepmc --seed 12345 --configKeyValues "GeneratorFileOrCmd.cmd=epos.sh -i <optnsFileName>;GeneratorFileOrCmd.bMaxSwitch=none;"
 ```
-where epos.sh is the steering script of EPOS4 which can be found [here](https://github.com/AliceO2Group/AliceO2/tree/dev/run/SimExamples/HepMC_EPOS4). The `-i` flag in the `cmd` parameter is mandatory in order to fetch the .optns file needed for the configuration of the generator: only the filename must be provided and the file (with `.optns` extension) must be available in the current working directory, otherwise the generation will not start. This is because paths are not supported in the original epos executable for the configuration file, however the epos.sh steering script can be preceded by a path (environment variables are allowed). More information are at the user disposal in the README files of each HepMC example folder.
+where epos.sh is the steering script of EPOS4 which can be found [here](https://github.com/AliceO2Group/AliceO2/tree/dev/run/SimExamples/HepMC_EPOS4). The `-i` flag in the `cmd` parameter is mandatory in order to fetch the .optns file needed for the configuration of the generator: only the filename must be provided and the file (with `.optns` extension) must be available in the current working directory, otherwise the generation will not start. This is because paths are not supported in the original epos executable for the configuration file, however the epos.sh steering script can be preceded by a path (environment variables are allowed). More information are at the user disposal in the README files of each HepMC example folder.  
+The generator spawning can be performed also using O2 external generators (discussed in the next paragraph) as done for EPOS4 in this [example](https://github.com/AliceO2Group/O2DPG/tree/master/MC/config/examples/epos4). This feature is very important because it allows us to run the HepMC based generators on hyperloop trains via on-the-fly events generation.  
+In case your generator puts data on disk instead you need to specify the fifo filename in which the FIFO will be automatically created via the `GeneratorFileOrCmd.fileNames` parameter. A full example is available through the JETSCAPE generator [here](https://github.com/AliceO2Group/AliceO2/tree/dev/run/SimExamples/HepMC_JETSCAPE).
 
 ## External generators
 
@@ -143,17 +168,19 @@ Most of the generators described until this point of the tutorial can be run sim
 - pythia8powheg
 - boxgen
 - hepmc
+- evtpool
 - extkinO2
 - external
 
 The hybrid generator is configured via two parameters:
 * configFile &rarr; path to filename of the JSON file used to configure the generators to be included in the hybrid run
 * randomize &rarr; if true the execution order of the generators will be randomised (false by default)
+* num_workers &rarr; number of threads available when parallel generation mode is enabled
 
 An example JSON configuration file can be found in the hybrid [example folder](https://github.com/AliceO2Group/AliceO2/tree/dev/run/SimExamples/Hybrid) where the script runo2sim.sh can be used as a base to run the generator for the first time, which contains a similar instruction to this one
 ```
 ${O2_ROOT}/bin/o2-sim --noGeant -j 4 --run 300000 --configKeyValues "GeneratorHybrid.configFile=/path/to/file.json;GeneratorHybrid.randomize=true" -g hybrid -o genevents --seed 836302859 -n 10
 ```
-A template of the configuration file can be generated via the O2DPG script [${O2DPG_ROOT}/MC/bin/o2_hybrid_gen.py](https://github.com/AliceO2Group/O2DPG/blob/master/MC/bin/o2_hybrid_gen.py) passing as argument to its **gen** flag a list of all the generators you want to use in your simulation. The newly created file will contain all the parameters needed to be configured (most of them with default values set) and a field called fractions which is an array with all elements set to unity. Each element, in order, corresponds to the number of events to be generated with each generator before passing to the next when running with no randomisation. If no fractions field is present all the elements are assumed to be unity, however if this is set it's important that the size of the array corresponds to the number of generators that will be initialised, otherwise the simulation will not start.
+A template of the configuration file can be generated via the O2DPG script [${O2DPG_ROOT}/MC/bin/o2_hybrid_gen.py](https://github.com/AliceO2Group/O2DPG/blob/master/MC/bin/o2_hybrid_gen.py) passing as argument to its **gen** flag a list of all the generators you want to use in your simulation. The template generator requires O2 to be loaded in your environment since the needed generators parameter and default values are dynamically taken from the ROOT dictionary, otherwise the script will not work. The newly created file will contain all the parameters needed to be configured (most of them with default values set) and a field called fractions which is an array with all elements set to unity. Each element, in order, corresponds to the number of events to be generated with each generator before passing to the next when running with no randomisation. If no fractions field is present all the elements are assumed to be unity, however if this is set it's important that the size of the array corresponds to the number of generators that will be initialised, otherwise the simulation will not start. These are also used for the randomisation distribution, changing the percentage of usage for each generator when declared. If they are not or each generator has the same fraction the randomisation will be uniform.
 
 For more usage information on both runo2sim.sh and o2_hybrid_gen.py you can always use the \-\-help flag or check the short description at the beginning of their source code.
