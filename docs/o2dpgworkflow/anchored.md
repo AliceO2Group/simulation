@@ -109,6 +109,9 @@ The `anchorMC.sh` script is sensitive to the following environment variables. Pl
 | `ALIEN_JDL_WORKFLOWDETECTORS` | no | `ITS,TPC,TOF,FV0,FT0,FDD,MID,MFT,MCH,TRD,EMC,PHS,CPV,HMP,CTP` | This can be a subset of the detectors that were active in reconstruction. If any detector is given here that was not active in reconstruction, it will be ignored. |
 | `ALIEN_JDL_ANCHOR_SIM_OPTIONS` | no | *empty* | Any additional simulation options to allow custom user setting. See [example](#run-pythia-with-a-different-collision-system) above. |
 | `ALIEN_JDL_ADDTIMESERIESINMC` | no | `1` | Whether or not to run TPC time series. Set to `0` to disable. |
+| `ALIEN_JDL_MC_ORBITS_PER_TF` | no | *empty* | Set the length of a timeframe in orbits (Otherwise the GRPECS value is used). |
+| `ALIEN_JDL_RUN_TIME_SPAN_FILE` | no | *empty* | Use an file containing bad/good data taking periods. (Same as in async reco). |
+| `ALIEN_JDL_INVERT_IRFRAME_SELECTION` | no | *empty* | If set, inverts the selection of the ALIEN_JDL_RUN_TIME_SPAN_FILE file. |
 | `SEED` | no | `${ALIEN_PROC_ID:-1}` | Set to seed the simulation. |
 | `SPLITID` | yes | | Choose the split to be simulated. See [terminology](#run-an-anchored-simulation) above. |
 | `PRODSPLIT` | yes | | Choose the maximum number of splits. See [terminology](#run-an-anchored-simulation) above. |
