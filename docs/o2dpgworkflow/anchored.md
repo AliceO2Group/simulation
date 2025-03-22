@@ -114,6 +114,7 @@ The `anchorMC.sh` script is sensitive to the following environment variables. Pl
 | `ALIEN_JDL_INVERT_IRFRAME_SELECTION` | no | *empty* | If set, inverts the selection of the ALIEN_JDL_RUN_TIME_SPAN_FILE file. |
 | `ALIEN_JDL_O2DPGWORKFLOWTARGET` | no | "aod" | Sets the target task, up which the O2DPG MC workflow is to be run. See workflow.json for the tasks. |
 | `ALIEN_JDL_O2DPG_ASYNC_RECO_TAG` | no | *empty* | Software package (e.g., O2PDPSuite::async-async-20240229.pp.2b-slc9-alidist-O2PDPSuite-daily-20231208-0100-async1-1) used to run reconstruction steps and configuration setup. |
+| `ALIEN_JDL_CCDB_CONDITION_NOT_AFTER` | no | *empty* | sets the condition_not_after timestamp for CCDB queries (to force fetching objects with a state before that timestamp). |
 | `SEED` | no | `${ALIEN_PROC_ID:-1}` | Set to seed the simulation. |
 | `SPLITID` | yes | | Choose the split to be simulated. See [terminology](#run-an-anchored-simulation) above. |
 | `PRODSPLIT` | yes | | Choose the maximum number of splits. See [terminology](#run-an-anchored-simulation) above. |
