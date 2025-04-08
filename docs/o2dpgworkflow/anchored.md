@@ -127,3 +127,69 @@ The `anchorMC.sh` script is sensitive to the following environment variables. Pl
 The procedure steered behind the scenes is quite involved. The following figure shall provide some overview.
 
 ![anchored run](../images/anchored_run.png)
+
+## The 2-Software Tag Approach for Anchored MC Productions
+
+A **2-tag software approach** is supported for anchored Monte Carlo (MC) productions. This means that individual tasks within an MC job can run using different CVMFS software releases.
+
+### Motivation
+
+The key motivation is to allow **reconstruction algorithms** to run against **stable releases** and configurations—those also used in data-reconstruction passes. At the same time, it is beneficial to **pick up new developments** in:
+
+- Event generators  
+- GEANT-based simulation  
+- Generic anchoring logic  
+- Workflow execution infrastructure
+
+This approach reduces the need to backport improvements into older software releases.
+
+---
+
+### How to Use the 2-Tag Setup
+
+In practice, you only need to do the following:
+
+**(a)** Use a recent (validated) software release in the `Packages` field of your JDL:
+
+- Picks up the latest **O2DPG logic**
+- Uses the most recent **generator code**
+- Includes updated **GEANT and digitization algorithms**
+
+**(b)** Set the environment variable `ALIEN_JDL_O2DPG_ASYNC_RECO_TAG` to point to the release used for **reconstruction**.
+
+- Ensures reconstruction uses the correct version for anchoring and configuration
+
+---
+
+### Example JDL Snippet
+
+```jdl
+Packages = {
+  "VO_ALICE@O2PDPSuite::daily-20250408-0000-1"
+};
+
+JDLVariables = {
+  ...
+  O2DPG_ASYNC_RECO_TAG
+  ...
+};
+
+O2DPG_ASYNC_RECO_TAG = "VO_ALICE@O2PDPSuite::async-async-v1-02-10-slc9-alidist-async-v1-02-01-1"
+...
+```
+
+### Important Notes
+
+While this approach is powerful and convenient, it comes with **potential risks**:
+
+* Incompatibilities between the two software releases (e.g., data format, configuration options, etc.)
+    
+* These should be **tested in pilot jobs** before launching large-scale productions.
+    
+
+Any observed issues should be reported via the usual channels:
+
+* [Mattermost simulation channels]
+    
+* [JIRA tickets]
+    
