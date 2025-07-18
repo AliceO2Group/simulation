@@ -94,13 +94,13 @@ The `anchorMC.sh` script is sensitive to the following environment variables. Pl
 
 | Variable | Required | Default | Comments |
 | -------- | -------- | ------- | -------- |
-| `ALIEN_JDL_LPMANCHORPASSNAME` | yes | | |
+| `ALIEN_JDL_LPMANCHORPASSNAME` | yes | | The recontruction pass/cycle to determine the reconstruction settings. Example: apass4 |
 | `ALIEN_JDL_MCANCHOR` | yes | | |
-| `ALIEN_JDL_LPMRUNNUMBER` | yes | | |
+| `ALIEN_JDL_LPMRUNNUMBER` | yes | | The ALICE run number to which this MC job anchors. |
 | `ALIEN_JDL_LPMANCHORRUN` | yes | | |
-| `ALIEN_JDL_LPMPRODUCTIONTAG` | yes | | |
+| `ALIEN_JDL_LPMPRODUCTIONTAG` | yes | | The name of this MC production on the ALICE Grid. |
 | `ALIEN_JDL_LPMANCHORPRODUCTION` | yes | | |
-| `ALIEN_JDL_LPMANCHORYEAR` | yes | | |
+| `ALIEN_JDL_LPMANCHORYEAR` | yes | | The data taking year corresponding to this job. |
 | `ALIEN_JDL_LPMPRODUCTIONTYPE` | yes | | Of course, that should be set to `MC`. At the  moment, it is still required to be set, but it is foreseen to set this to `MC` by default and remove it from even being configurable. |
 | `ALIEN_JDL_LPMINTERACTIONTYPE` | yes | | The interaction type, choose from `pp` or `PbPb` |
 | `ALIEN_JDL_CPULIMIT` | no | 8 | The CPU limit that will be **assumed** by the workflow runner. The real limit depends on the machine it is run on. |
@@ -117,9 +117,9 @@ The `anchorMC.sh` script is sensitive to the following environment variables. Pl
 | `SEED` | no | `${ALIEN_PROC_ID:-1}` | Set to seed the simulation. |
 | `SPLITID` | yes | | Choose the split to be simulated. See [terminology](#run-an-anchored-simulation) above. |
 | `PRODSPLIT` | yes | | Choose the maximum number of splits. See [terminology](#run-an-anchored-simulation) above. |
-| `CYCLE` | no | | Choose the cycle within which to simulated. 0 by default. See [terminology](#run-an-anchored-simulation) above. |
+| `CYCLE` | no | 0 | Choose the cycle within which to simulated. 0 by default. See [terminology](#run-an-anchored-simulation) above. |
 | `NTIMEFRAMES` | yes | | The number of timeframes to be simulated for this split. |
-| `NSIGEVENTS` | no | | The number of signal events to be simulated per timeframe. Note that this is treated as an upper limit. The actual number of events is re-computed based in the interaction rate determined for this split. |
+| `NSIGEVENTS` | no | 10000 | The number of signal events to be simulated per timeframe. Note that this is treated as an upper limit. The actual number of events is re-computed based in the interaction rate determined for this split. |
 
 ## Behind the scenes
 
