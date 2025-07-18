@@ -106,7 +106,7 @@ The `anchorMC.sh` script is sensitive to the following environment variables. Pl
 | `ALIEN_JDL_CPULIMIT` | no | 8 | The CPU limit that will be **assumed** by the workflow runner. The real limit depends on the machine it is run on. |
 | `ALIEN_JDL_SIMENGINE` | no | `TGeant4` | The engine to be used for particle transport. |
 | `ALIEN_JDL_WORKFLOWDETECTORS` | no | `ITS,TPC,TOF,FV0,FT0,FDD,MID,MFT,MCH,TRD,EMC,PHS,CPV,HMP,CTP` | This can be a subset of the detectors that were active in reconstruction. If any detector is given here that was not active in reconstruction, it will be ignored. |
-| `ALIEN_JDL_ANCHOR_SIM_OPTIONS` | no | *empty* | Any additional simulation options to allow custom user setting. See [example](#run-pythia-with-a-different-collision-system) above. |
+| `ALIEN_JDL_ANCHOR_SIM_OPTIONS` | no | *empty* | Any additional simulation options to allow custom user setting. Mostly used to define the event generator or to pass additional configurations or options. See [example](#run-pythia-with-a-different-collision-system) above. |
 | `ALIEN_JDL_ADDTIMESERIESINMC` | no | `1` | Whether or not to run TPC time series. Set to `0` to disable. |
 | `ALIEN_JDL_MC_ORBITS_PER_TF` | no | *empty* | Set the length of a timeframe in orbits (Otherwise the GRPECS value is used). |
 | `ALIEN_JDL_RUN_TIME_SPAN_FILE` | no | *empty* | Set the filename containing bad/good data taking periods. (Same as in async reco). |
@@ -115,8 +115,8 @@ The `anchorMC.sh` script is sensitive to the following environment variables. Pl
 | `ALIEN_JDL_O2DPG_ASYNC_RECO_TAG` | no | *empty* | Software package (e.g., O2PDPSuite::async-async-20240229.pp.2b-slc9-alidist-O2PDPSuite-daily-20231208-0100-async1-1) used to run reconstruction steps and configuration setup. |
 | `ALIEN_JDL_CCDB_CONDITION_NOT_AFTER` | no | *empty* | sets the condition_not_after timestamp for CCDB queries (to force fetching objects with a state before that timestamp). |
 | `SEED` | no | `${ALIEN_PROC_ID:-1}` | Set to seed the simulation. |
-| `SPLITID` | yes | | Choose the split to be simulated. See [terminology](#run-an-anchored-simulation) above. |
-| `PRODSPLIT` | yes | | Choose the maximum number of splits. See [terminology](#run-an-anchored-simulation) above. |
+| `SPLITID` | yes | | Choose the split to be simulated. Corresponds to a particular timestamp within a run. The SPLITID is an 1 <= id <= PRODSPLIT. See [terminology](#run-an-anchored-simulation) above. |
+| `PRODSPLIT` | yes | | The number of MC jobs in this production which are equally distributed within the run. See [terminology](#run-an-anchored-simulation) above. |
 | `CYCLE` | no | 0 | Choose the cycle within which to simulated. 0 by default. See [terminology](#run-an-anchored-simulation) above. |
 | `NTIMEFRAMES` | yes | | The number of timeframes to be simulated for this split. |
 | `NSIGEVENTS` | no | 10000 | The number of signal events to be simulated per timeframe. Note that this is treated as an upper limit. The actual number of events is re-computed based in the interaction rate determined for this split. |
