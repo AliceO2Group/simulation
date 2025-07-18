@@ -71,7 +71,6 @@ export ALIEN_JDL_ANCHOR_SIM_OPTIONS="-gen pythia8 -confKey GeneratorPythia8.conf
 
 # the following are example values
 export NTIMEFRAMES=2
-export NSIGEVENTS=50
 export SPLITID=100
 export PRODSPLIT=153
 export CYCLE=0
@@ -118,9 +117,9 @@ The `anchorMC.sh` script is sensitive to the following environment variables. Pl
 | `SEED` | no | `${ALIEN_PROC_ID:-1}` | Set to seed the simulation. |
 | `SPLITID` | yes | | Choose the split to be simulated. See [terminology](#run-an-anchored-simulation) above. |
 | `PRODSPLIT` | yes | | Choose the maximum number of splits. See [terminology](#run-an-anchored-simulation) above. |
-| `CYCLE` | yes | | Choose the cycle within which to simulated. See [terminology](#run-an-anchored-simulation) above. |
+| `CYCLE` | no | | Choose the cycle within which to simulated. 0 by default. See [terminology](#run-an-anchored-simulation) above. |
 | `NTIMEFRAMES` | yes | | The number of timeframes to be simulated for this split. |
-| `NSIGEVENTS` | yes | | The number of signal events to be simulated per timeframe. Note that this is treated as an upper limit. The actual number of events is re-computed based in the interaction rate determined for this split. |
+| `NSIGEVENTS` | no | | The number of signal events to be simulated per timeframe. Note that this is treated as an upper limit. The actual number of events is re-computed based in the interaction rate determined for this split. |
 
 ## Behind the scenes
 
