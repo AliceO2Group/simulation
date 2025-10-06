@@ -8,7 +8,7 @@ title: MC Software Releases
 This page lists the current release for the MC software stack to be used in
 GRID productions.
 
-The current production release for MC is `O2PDPSuite::MC-prod-2025-v10-1`.
+The current production release for MC is `O2PDPSuite::MC-prod-2025-v12-1`.
 
 ## Stable MC Software Releases
 
