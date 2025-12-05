@@ -8,7 +8,7 @@ title: MC Software Releases
 This page lists the current release for the MC software stack to be used in
 GRID productions.
 
-The current production release for MC is `O2PDPSuite::MC-prod-2025-v14-1`.
+The current production release for MC is `O2PDPSuite::MC-prod-2025-v15-1`.
 
 ## Stable MC Software Releases
 
@@ -22,4 +22,5 @@ The current production release for MC is `O2PDPSuite::MC-prod-2025-v14-1`.
 | `O2PDPSuite::MC-prod-2025-v9-1` |        | 06/08/2025 | Produced from daily tag `O2DPGSuite::daily-20250806-0000-1`. Fixes for 2tag/Geant4 modulefiles. |
 | `O2PDPSuite::MC-prod-2025-v10-1` | Stable | 02/09/2025 | Produced from daily tag `O2DPGSuite::daily-20250902-0000-1`. |
 | `O2DPGSuite::MC-prod-2025-v12-1` | Stable | 01/10/2025 | Produced from daily tag `O2DPGSuite::daily-20251001-0000-1`. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2025-v12.md) |
-| `O2DPGSuite::MC-prod-2025-v13-1` | **Current** | 10/10/2025 | Produced from daily tag `O2DPGSuite::daily-20251010-0000-1`. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2025-v13.md) |
+| `O2DPGSuite::MC-prod-2025-v13-1` | Stable | 10/10/2025 | Produced from daily tag `O2DPGSuite::daily-20251010-0000-1`. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2025-v13.md) |
+| `O2DPGSuite::MC-prod-2025-v15-1` | **Current** | 03/12/2025 | Produced from daily tag `O2DPGSuite::daily-20251203-0000-1`. ITS geometry budget,... (release notes to be put)|
