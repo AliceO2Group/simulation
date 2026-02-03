@@ -8,7 +8,7 @@ title: MC Software Releases
 This page lists the current release for the MC software stack to be used in
 GRID productions.
 
-The current production release for MC is `O2PDPSuite::MC-prod-2026-v1-1`. ([Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v1.md))
+The current production release for MC is `O2PDPSuite::MC-prod-2026-v2-1`. ([Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v2.md))
 
 ## Stable MC Software Releases
 
@@ -25,4 +25,5 @@ The current production release for MC is `O2PDPSuite::MC-prod-2026-v1-1`. ([Rele
 | `O2DPGSuite::MC-prod-2025-v13-1` | Stable | 10/10/2025 | Produced from daily tag `O2DPGSuite::daily-20251010-0000-1`. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2025-v13.md) |
 | `O2DPGSuite::MC-prod-2025-v15-1` | Stable | 03/12/2025 | Produced from daily tag `O2DPGSuite::daily-20251203-0000-1`. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2025-v15.md) |
 | `O2DPGSuite::MC-prod-2025-v16-1` | Stable | 17/12/2025 | Produced from daily tag `O2DPGSuite::daily-20251217-0000-1`. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2025-v16.md) |
-| `O2DPGSuite::MC-prod-2026-v1-1` | **Current** | 06/01/2026 | Produced from daily tag `O2DPGSuite::daily-20260106-0000-1`. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v11.md) |
+| `O2DPGSuite::MC-prod-2026-v1-1` | Stable | 06/01/2026 | Produced from daily tag `O2DPGSuite::daily-20260106-0000-1`. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v1.md) |
+| `O2DPGSuite::MC-prod-2026-v2-1` | **Current** | 01/02/2026 | Produced from daily tag `O2DPGSuite::daily-20260201-0000-1`. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v2.md) |
