@@ -8,7 +8,7 @@ title: MC Software Releases
 This page lists the current release for the MC software stack to be used in
 GRID productions.
 
-The current production release for MC is `O2PDPSuite::MC-prod-2026-v3-1`. ([Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v3.md))
+The current production release for MC is `O2PDPSuite::MC-prod-2026-v4-1`. ([Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v4.md))
 
 ## Stable MC Software Releases
 
@@ -27,4 +27,5 @@ The current production release for MC is `O2PDPSuite::MC-prod-2026-v3-1`. ([Rele
 | `O2DPGSuite::MC-prod-2025-v16-1` | Stable | 17/12/2025 | Produced from daily tag `O2DPGSuite::daily-20251217-0000-1`. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2025-v16.md) |
 | `O2DPGSuite::MC-prod-2026-v1-1` | Stable | 06/01/2026 | Produced from daily tag `O2DPGSuite::daily-20260106-0000-1`. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v1.md) |
 | `O2DPGSuite::MC-prod-2026-v2-1` | Stable | 01/02/2026 | Produced from daily tag `O2DPGSuite::daily-20260201-0000-1`. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v2.md) |
-| `O2DPGSuite::MC-prod-2026-v3-1` | **Current** | 05/02/2026 | Produced from daily tag `O2DPGSuite::daily-20260205-0000-1`. Fix of crash in external generators. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v3.md) |
+| `O2DPGSuite::MC-prod-2026-v3-1` | Stabke | 05/02/2026 | Produced from daily tag `O2DPGSuite::daily-20260205-0000-1`. Fix of crash in external generators. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v3.md) |
+| `O2DPGSuite::MC-prod-2026-v4-1` | **Current** | 23/02/2026 | Produced from daily tag `O2DPGSuite::daily-20260223-0000-1`. TPC drift-time improvements in O2DPG. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v4.md) |
