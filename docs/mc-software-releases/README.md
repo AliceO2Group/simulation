@@ -8,7 +8,7 @@ title: MC Software Releases
 This page lists the current release for the MC software stack to be used in
 GRID productions.
 
-The current production release for MC is `O2PDPSuite::MC-prod-2026-v6-1`. ([Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v6.md))
+The current production release for MC is `O2PDPSuite::MC-prod-2026-v7-1`. ([Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v7.md))
 
 ## Stable MC Software Releases
 
@@ -30,5 +30,6 @@ The current production release for MC is `O2PDPSuite::MC-prod-2026-v6-1`. ([Rele
 | `O2DPGSuite::MC-prod-2026-v3-1` | Stable | 05/02/2026 | Produced from daily tag `O2DPGSuite::daily-20260205-0000-1`. Fix of crash in external generators. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v3.md) |
 | `O2DPGSuite::MC-prod-2026-v4-1` | Stable | 23/02/2026 | Produced from daily tag `O2DPGSuite::daily-20260223-0000-1`. TPC drift-time improvements in O2DPG. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v4.md) |
 | `O2DPGSuite::MC-prod-2026-v5-1` |       | 25/03/2026 | Produced from daily tag `O2DPGSuite::daily-20260325-0000-1`. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v5.md) |
-| `O2DPGSuite::MC-prod-2026-v6-1` | **Current** | 24/04/2026 | Produced from daily tag `O2DPGSuite::daily-20260424-0000-1`. FIT digi settings. AOD rewrite bug fix. AOD MC label fix (embedding). [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v6.md) |
+| `O2DPGSuite::MC-prod-2026-v6-1` | Problem with AOD corruption | 24/04/2026 | Produced from daily tag `O2DPGSuite::daily-20260424-0000-1`. FIT digi settings. AOD rewrite bug fix. AOD MC label fix (embedding). [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v6.md) |
+| `O2DPGSuite::MC-prod-2026-v7-1` | Current | 06/05/2026 | Produced from daily tag `O2DPGSuite::daily-20260506-0000-1`. Fix of problem in AODBcRewriter (corrupted MC particle data). [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v7.md) |
 
