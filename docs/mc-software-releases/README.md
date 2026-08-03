@@ -13,6 +13,7 @@ The current production release for MC is `O2PDPSuite::MC-prod-2026-v11-1`. ([Rel
 ## Stable MC Software Releases
 
 <!-- release-table:start -->
+
 | Version                         | Status  | Date       | Comments                                                                                       |
 |---------------------------------|---------|------------|------------------------------------------------------------------------------------------------|
 | `O2PDPSuite::MC-prod-2025-v1-2` | Stable  | —          | Produced from master/dev                                                                       |
@@ -37,4 +38,5 @@ The current production release for MC is `O2PDPSuite::MC-prod-2026-v11-1`. ([Rel
 | `O2DPGSuite::MC-prod-2026-v9-1` | stable | 12/06/2026 | Produced from daily tag `O2DPGSuite::daily-20260612-0000-1`. Fix more problems in AODBcRewriter (non-joinable MC tables). [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v9.md) |
 | `O2DPGSuite::MC-prod-2026-v10-1` | Stable | 29/06/2026 | Produced from daily tag `O2DPGSuite::daily-20260629-0000-1`. FIT crosstalk effect in digitization. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite%3A%3AMC-prod-2026-v10.md) |
 | `O2PDPSuite::MC-prod-2026-v11-1` | current | 29/07/2026 | Produced from daily tag `O2PDPSuite::daily-20260729-0000-1`. First release cut and documented by the new agentic mc-release pipeline. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite-MC-prod-2026-v11.md) |
+
 <!-- release-table:end -->
