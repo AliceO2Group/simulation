@@ -1,0 +1,49 @@
+---
+# Regenerate docs/cadtutorial from the tutorial sources in AliceO2.
+#
+# The tutorial is written and reviewed next to the code it documents, in
+# AliceO2 under Detectors/CADSupport/doc/tutorial. This job converts those
+# pages into the form this site expects, so the section here never drifts
+# from the converter it describes.
+
+name: CAD tutorial
+
+on:
+  schedule:
+    - cron: "17 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch the tutorial sources
+        working-directory: ${{ runner.temp }}
+        run: |
+          git clone --depth 1 --filter=blob:none --sparse \
+              https://github.com/AliceO2Group/AliceO2.git aliceo2
+          cd aliceo2
+          git sparse-checkout set Detectors/CADSupport/doc/tutorial
+
+      - name: Regenerate the section
+        run: |
+          python3 .github/scripts/sync_cad_tutorial.py \
+              --source "${{ runner.temp }}/aliceo2"
+
+      - name: Commit if anything changed
+        run: |
+          if git diff --quiet -- docs/cadtutorial; then
+            echo "already up to date"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email \
+              "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/cadtutorial
+          git commit -m "Regenerate the CAD simulation tutorial from AliceO2"
+          git push
