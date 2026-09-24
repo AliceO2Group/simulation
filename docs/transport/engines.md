@@ -7,6 +7,8 @@ title: Transport engines
 
 ## GEANT4
 
+Radiation maps (fluence, dose, 1 MeV n eq) can be scored on a mesh, see [Geant4 scoring](../scoring/).
+
 ### Scaling hadronic cross sections
 
 Hadronic cross sections can be scaled by passing a specific Geant4 configuration to the transport simulation.
@@ -15,6 +17,8 @@ Hadronic cross sections can be scaled by passing a specific Geant4 configuration
 ## FLUKA
 
 Informtation about FLUKA.
+
+For `USRBIN` scoring in `o2-sim` and how it maps to Geant4, see [the same scoring in FLUKA](../scoring/flukacomparison.md).
 
 ## GEANT3
 
