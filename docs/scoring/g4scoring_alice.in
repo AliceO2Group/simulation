@@ -1,0 +1,33 @@
+# ALICE radiation scoring: two cylindrical meshes, phi averaged.
+# Append this to $O2_ROOT/share/Detectors/gconfig/g4config.in and pass the
+# result as G4.configMacroFile. The scorers mirror the FLUKA USRBIN cards
+# 201 (fluence), 236 (1 MeV n eq), 237 (hadrons > 20 MeV), 202 (charged)
+# and 208 (energy deposit).
+
+# inner tracker region: R < 10 cm, |z| < 30 cm, 1 mm x 1 cm bins
+/score/create/cylinderMesh fine
+/score/mesh/cylinderSize 10. 30. cm
+/score/mesh/nBin 100 60 1
+/score/quantity/cellFlux flux percm2
+/score/quantity/cellFlux neq percm2 true
+/score/quantity/cellFlux had20 percm2
+/score/filter/particleWithKineticEnergy had20filter 20. 10000000. MeV proton anti_proton neutron anti_neutron pi+ pi- kaon+ kaon- kaon0L kaon0S lambda anti_lambda sigma+ sigma- xi- xi0 omega-
+/score/quantity/cellFlux charged percm2
+/score/filter/charged chargedfilter
+/score/quantity/energyDeposit edep MeV
+/score/quantity/doseDeposit dose Gy
+/score/close
+
+# whole cavern: R < 5 m, |z| < 5 m, 2.5 cm x 5 cm bins
+/score/create/cylinderMesh coarse
+/score/mesh/cylinderSize 500. 500. cm
+/score/mesh/nBin 200 200 1
+/score/quantity/cellFlux flux percm2
+/score/quantity/cellFlux neq percm2 true
+/score/quantity/cellFlux had20 percm2
+/score/filter/particleWithKineticEnergy had20filter 20. 10000000. MeV proton anti_proton neutron anti_neutron pi+ pi- kaon+ kaon- kaon0L kaon0S lambda anti_lambda sigma+ sigma- xi- xi0 omega-
+/score/quantity/cellFlux charged percm2
+/score/filter/charged chargedfilter
+/score/quantity/energyDeposit edep MeV
+/score/quantity/doseDeposit dose Gy
+/score/close
