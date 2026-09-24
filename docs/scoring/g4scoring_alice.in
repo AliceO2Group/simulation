@@ -1,4 +1,6 @@
 # ALICE radiation scoring: two cylindrical meshes, phi averaged.
+# The neq scorers need G4.g4fluenceweight=true and G4.fluenceWeightFile, otherwise
+# they silently score unweighted fluence.
 # Append this to $O2_ROOT/share/Detectors/gconfig/g4config.in and pass the
 # result as G4.configMacroFile. The scorers mirror the FLUKA USRBIN cards
 # 201 (fluence), 236 (1 MeV n eq), 237 (hadrons > 20 MeV), 202 (charged)
