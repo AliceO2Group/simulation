@@ -139,8 +139,13 @@ The trailing `true` is the `scoreweighted` flag. It only exists for `cellFlux`.
 Switch the weights on with:
 
 ```bash
---configKeyValues "G4.g4scoring=true;G4.g4fluenceweight=true;G4.fluenceWeightFile=$PWD/rd50_niel.csv;G4.configMacroFile=$PWD/g4scoring.in"
+--configKeyValues "G4.g4scoring=true;G4.g4fluenceweight=true;G4.fluenceWeightFile=$O2_ROOT/share/Detectors/gconfig/data/rd50_niel.csv;G4.configMacroFile=$PWD/g4scoring.in"
 ```
+
+**The `true` flag alone does nothing.** Without `G4.g4fluenceweight=true` the
+scorer falls back to a weight of one for every step, so the map looks perfectly
+healthy and is plain fluence. There is no warning. If a `neq` map comes out
+equal to the unweighted one, this is why.
 
 The weight file is a CSV of PDG code, kinetic energy in MeV and damage weight:
 
@@ -149,10 +154,9 @@ The weight file is a CSV of PDG code, kinetic energy in MeV and damage weight:
 2112,1.025000e-10,1.575000e-02
 ```
 
-The same curves ship with O2 as ROOT graphs in
-`$O2_ROOT/share/Detectors/gconfig/data/rd50_niel.root`, under the names
-`neutronDW`, `protonDW`, `pionDW` and `electronDW`. If you do not have the text
-file, write it out from there — the loader only accepts CSV.
+The file ships with O2 as
+`$O2_ROOT/share/Detectors/gconfig/data/rd50_niel.csv`, together with the same
+curves as ROOT graphs in `rd50_niel.root`. The loader only accepts CSV.
 
 Only four tables are read — neutron (2112), proton (2212), pion (211) and
 electron (11) — and they are applied like this:
@@ -166,7 +170,9 @@ electron (11) — and they are applied like this:
 | everything else | zero |
 
 Outside the tabulated energy range the weight is clamped to the first or last
-tabulated value.
+tabulated value. The file shipped with O2 has no electron table, so electrons
+and positrons carry no damage weight; against FLUKA, which weights them, this
+costs about half a percent in the inner tracker.
 
 The consequence for a comparison: **do not filter the NIEL scorer down to
 neutrons, protons and pions.** FLUKA's `SI1MEVNE` weights every hadron and
@@ -184,7 +190,7 @@ coarse one over the cavern, each with fluence, 1 MeV n eq, hadrons above
 cat $O2_ROOT/share/Detectors/gconfig/g4config.in g4scoring_alice.in > g4full.in
 
 o2-sim -e TGeant4 -g pythia8pp -n 1000 -j 8 \
-  --configKeyValues "G4.g4scoring=true;G4.g4fluenceweight=true;G4.fluenceWeightFile=$PWD/rd50_niel.csv;G4.configMacroFile=$PWD/g4full.in"
+  --configKeyValues "G4.g4scoring=true;G4.g4fluenceweight=true;G4.fluenceWeightFile=$O2_ROOT/share/Detectors/gconfig/data/rd50_niel.csv;G4.configMacroFile=$PWD/g4full.in"
 ```
 
 {% include list.liquid all=true %}
