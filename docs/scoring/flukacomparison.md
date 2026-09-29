@@ -88,10 +88,17 @@ So per event: `fluka_value * total_weight / nevents` against
   in `o2-sim`, and setting `FlukaParam.scoringFile` also switches it on. In
   Geant4 use an HP physics list and lower the neutron cut:
   `G4.physicsmode=kFTFP_BERT_HP_optical;SimCutParams.lowneut=true;GlobalSimProcs.CUTNEU=5.e-12`.
-- **Optical photons.** Geant4 produces and transports Cherenkov photons in the
-  FT0; FLUKA in the ALICE setup does not. They show up in any unfiltered
-  fluence scorer and swamp it locally. Dose, 1 MeV n eq and hadron fluence are
-  unaffected.
+- **Optical photons.** O2 switches on Cherenkov production in the FT0 radiator
+  in both engines, and both count these photons in an unfiltered fluence
+  scorer (`ALL-PART` in FLUKA, a `cellFlux` without filter in Geant4). The
+  engines do not produce the same number: the absorption length and mirror
+  surfaces O2 defines for the FT0 are passed to Geant4 but not to FLUKA, so
+  FLUKA's photons are not absorbed and about six times more of them leave the
+  detector. In ALICE 2, with the MFT fix below applied, this makes the total
+  fluence differ by a factor two at R = 5–20 cm near the FT0 planes
+  (z = +335 cm and z = −84 cm). The photons carry a few eV, so dose,
+  1 MeV n eq and hadron fluence are unaffected.
+  Compare the species you need, never unfiltered total fluence.
 - **Same geometry.** `--detectorList` and `--skipModules` have to match, and
   hit creation should be switched off or on in both.
 
