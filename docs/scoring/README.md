@@ -170,9 +170,14 @@ electron (11) — and they are applied like this:
 | everything else | zero |
 
 Outside the tabulated energy range the weight is clamped to the first or last
-tabulated value. The file shipped with O2 has no electron table, so electrons
-and positrons carry no damage weight; against FLUKA, which weights them, this
-costs about half a percent in the inner tracker.
+tabulated value. The electron table covers 0.3 to 200 MeV (Summers et al.,
+IEEE Trans. Nucl. Sci. 40 (1993) 1372, as compiled by RD50), so electrons below
+0.3 MeV get the lowest tabulated weight. O2 versions from before October 2026
+ship the file without the electron table; there e± weigh nothing, which is
+about half a percent of the inner-tracker n eq.
+
+The four tables are the RD50 compilation by A. Vasilescu and G. Lindström,
+https://rd50.web.cern.ch/NIEL/.
 
 The consequence for a comparison: **do not filter the NIEL scorer down to
 neutrons, protons and pions.** FLUKA's `SI1MEVNE` weights every hadron and
