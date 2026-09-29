@@ -82,9 +82,11 @@ So per event: `fluka_value * total_weight / nevents` against
 - **Same kinematics.** Generate once with `--noGeant`, then replay the same
   file in both engines with `-g extkinO2 --extKinFile o2sim_Kine.root`.
   Otherwise the comparison also contains the generator.
-- **Low-energy neutrons.** FLUKA transports neutrons down to thermal energies
-  by default. Geant4 does not, unless an HP physics list is used and the
-  neutron cut is lowered:
+- **Low-energy neutrons.** Whenever neutrons below 20 MeV matter, which is the
+  case for any 1 MeV n eq map, switch low-energy neutron transport on in both
+  engines. In FLUKA this is `FlukaParam.lowNeutron=true`; it is off by default
+  in `o2-sim`, and setting `FlukaParam.scoringFile` also switches it on. In
+  Geant4 use an HP physics list and lower the neutron cut:
   `G4.physicsmode=kFTFP_BERT_HP_optical;SimCutParams.lowneut=true;GlobalSimProcs.CUTNEU=5.e-12`.
 - **Optical photons.** Geant4 produces and transports Cherenkov photons in the
   FT0; FLUKA in the ALICE setup does not. They show up in any unfiltered
@@ -107,8 +109,10 @@ Check this in every FLUKA run directory before you trust a map:
 grep -c "ASSIGNMAT       -1.0" flukaMat.inp   # 0 when healthy
 ```
 
-This affected the ten MFT PEEK support disks in ALICE 2 and pulled the FLUKA
-fluence in the barrel down by up to a factor two — for a long time this was read
-as a physics disagreement between the two codes. The geometry is fixed by
-giving the support volume a name of its own; make sure your O2 version has that
-fix.
+In ALICE 2 this happened to the ten MFT PEEK support disks, which lowered the
+FLUKA fluence in the barrel by up to a factor two. The name clash exists in O2
+from February 2020 ([AliceO2 PR 2877](https://github.com/AliceO2Group/AliceO2/pull/2877)) until September 2026, when the support
+volume got a name of its own (`4f9072579a`). It concerns only TFluka runs with
+an O2 version from that period and the MFT in the geometry. The official ALICE
+FLUKA calculations predate it and are not affected, and neither are the FoCal
+calculations on the A side.
