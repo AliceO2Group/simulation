@@ -88,9 +88,11 @@ Particle names are the Geant4 ones: `neutron`, `proton`, `anti_proton`, `pi+`,
 `pi-`, `kaon0L`, `gamma`, `e-`, `opticalphoton`, and so on.
 
 A scorer without a filter counts everything, **including optical photons**.
-Those dominate the total fluence around the FT0 and are not transported by
-FLUKA at all, so an unfiltered `cellFlux` is not a quantity you can compare
-between the two engines. Filter, or read the filtered scorers instead.
+Those come from the FT0 radiator and dominate the total fluence around it. FLUKA
+produces them too, but in different numbers (see
+[the same scoring in FLUKA](flukacomparison.md)), so an unfiltered `cellFlux` is
+not a quantity you can compare between the two engines. Filter, or read the
+filtered scorers instead.
 
 ## Output
 
