@@ -8,7 +8,7 @@ title: MC Software Releases
 This page lists the current release for the MC software stack to be used in
 GRID productions.
 
-The current production release for MC is `O2PDPSuite::MC-prod-2026-v14-1`. ([Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite-MC-prod-2026-v14.md))
+The current production release for MC is `O2PDPSuite::MC-prod-2026-v15-1`. ([Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite-MC-prod-2026-v15.md))
 
 ## Stable MC Software Releases
 
@@ -40,6 +40,7 @@ The current production release for MC is `O2PDPSuite::MC-prod-2026-v14-1`. ([Rel
 | `O2PDPSuite::MC-prod-2026-v11-1` | Stable | 29/07/2026 | Produced from daily tag `O2PDPSuite::daily-20260729-0000-1`. First release cut and documented by the new agentic mc-release pipeline. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite-MC-prod-2026-v11.md) |
 | `O2PDPSuite::MC-prod-2026-v12-1` | Stable | 17/09/2026 | Produced from daily tag `O2PDPSuite::daily-20260917-0000-1`. New TPC calibration access. O2DPG taken from commit 90c0a3d259: the anchoring point is shifted past the ITS ramp-up, and 2-tag anchored MC works again. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite-MC-prod-2026-v12.md) |
 | `O2PDPSuite::MC-prod-2026-v13-1` | Stable | 29/09/2026 | Produced from daily tag `O2PDPSuite::daily-20260929-0000-1`. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite-MC-prod-2026-v13.md) |
-| `O2PDPSuite::MC-prod-2026-v14-1` | current | 02/11/2026 | Produced from daily tag `O2PDPSuite::daily-20261102-0000-1`. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite-MC-prod-2026-v14.md) |
+| `O2PDPSuite::MC-prod-2026-v14-1` | Stable | 02/11/2026 | Produced from daily tag `O2PDPSuite::daily-20261102-0000-1`. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite-MC-prod-2026-v14.md) |
+| `O2PDPSuite::MC-prod-2026-v15-1` | current | 22/11/2026 | Produced from daily tag `O2PDPSuite::daily-20261122-0000-1`. Fixes the pile-up in the collision context of anchored MC (O2-7330) and anchored jobs that could run the reconstruction without the anchored settings (O2-7359). MC-prod-2026-v16 is a duplicate of this release and should not be used. [Release notes](https://github.com/sawenzel/MCReleasePrototype/blob/main/releases/release-notes/release-notes-O2PDPSuite-MC-prod-2026-v15.md) |
 
 <!-- release-table:end -->
